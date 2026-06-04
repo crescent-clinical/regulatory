@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crescent Clinical Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0a2540;
+    --accent: #00c8b4;
+    --accent2: #dff5f2;
+    --accent-glow: rgba(0,200,180,0.22);
+    --text: #0d1f38;
+    --text-muted: #3d5878;
+    --bg: #eef5f9;
+    --surface: #ffffff;
+    --surface2: #e4f0f6;
+    --border: rgba(10,37,64,0.13);
+    --shadow-sm: 0 2px 12px rgba(10,37,64,0.07);
+    --shadow-md: 0 6px 28px rgba(10,37,64,0.10);
+    --shadow-lg: 0 16px 56px rgba(10,37,64,0.13);
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 16px;
+    --radius-sm: 8px;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-theme="dark"] {
+    --primary: #e8f4fb;
+    --accent: #00e8d0;
+    --accent2: rgba(0,200,180,0.12);
+    --accent-glow: rgba(0,232,208,0.18);
+    --text: #e8f4fb;
+    --text-muted: #7ab3cc;
+    --bg: #060f1a;
+    --surface: #0d1e2e;
+    --surface2: #0f2236;
+    --border: rgba(0,200,180,0.15);
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    transition: background 0.4s, color 0.4s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    height: 72px;
+    background: rgba(255,255,255,0.90);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(10,37,64,0.10);
+    box-shadow: 0 1px 20px rgba(10,37,64,0.07);
+    transition: background 0.4s, box-shadow 0.4s;
+  }
+  [data-theme="dark"] nav {
+    background: rgba(6,15,26,0.85);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  /* ── LOGO IMAGE ── */
+  .logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    transition: filter 0.4s ease, opacity 0.3s ease;
+  }
+  /* Dark theme: invert the white-bg logo so it reads on dark nav */
+  [data-theme="dark"] .logo-img {
+    filter: invert(1) hue-rotate(170deg) brightness(1.15);
+  }
+  .logo-img--sm {
+    height: 28px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+    transition: filter 0.4s ease;
+  }
+  [data-theme="dark"] .logo-img--sm {
+    filter: invert(1) hue-rotate(170deg) brightness(1.15);
+  }
+  /* keep these for any legacy references */
+  .logo-icon { display: none; }
+  .logo-text  { display: none; }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0;
+    transition: color 0.2s;
+    opacity: 0.72;
+  }
+  .nav-links a:focus { opacity: 1; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+  .btn-nav {
+    padding: 9px 20px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-nav:hover { transform: translateY(-1px); box-shadow: 0 6px 20px var(--accent-glow); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .hero-bg .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+  }
+  .orb1 { width: 600px; height: 600px; background: var(--accent); top: -200px; right: -100px; }
+  .orb2 { width: 400px; height: 400px; background: #0056b3; bottom: -100px; left: -50px; }
+  .orb3 { width: 300px; height: 300px; background: var(--accent); top: 40%; left: 30%; opacity: 0.12; }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.5;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent2);
+    border: 1px solid rgba(0,200,180,0.3);
+    border-radius: 40px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  h1.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(38px, 5.5vw, 68px);
+    font-weight: 800;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  h1.hero-title em {
+    font-style: normal;
+    color: var(--accent);
+    display: block;
+  }
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 540px;
+    margin-bottom: 40px;
+    font-weight: 400;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px var(--accent-glow); }
+  .btn-outline {
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid rgba(10,37,64,0.25);
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent2); }
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-item .stat-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .stat-item .stat-num span { color: var(--accent); }
+  .stat-item .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+  .hero-visual {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    animation: floatIn 0.8s 0.3s ease both;
+  }
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(-50%) translateX(40px); }
+    to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-section {
+    padding: 18px 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 28s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    opacity: 0.55;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+  }
+  .marquee-item::before { content: '◆'; color: var(--accent); font-size: 8px; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 5%; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent2);
+    border: 1px solid rgba(0,200,180,0.25);
+    border-radius: 40px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+  }
+  h2.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 46px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin-bottom: 60px;
+    font-weight: 400;
+  }
+
+  /* ── VISION / MISSION ── */
+  .vm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .vm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .vm-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,200,180,0.15); }
+  .vm-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #0056b3);
+  }
+  .vm-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--accent2);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .vm-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .vm-card p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* ── REGULATIONS ── */
+  .reg-section { background: var(--surface); }
+  .reg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .reg-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .reg-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow-md); }
+  .reg-flag {
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
+  .reg-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .reg-card .reg-full {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .reg-card p { font-size: 14px; line-height: 1.7; color: var(--text-muted); font-weight: 400; }
+  .reg-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .reg-tag {
+    font-size: 10px;
+    font-weight: 600;
+    background: var(--accent2);
+    color: var(--accent);
+    border: 1px solid rgba(0,200,180,0.25);
+    border-radius: 20px;
+    padding: 3px 10px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── SERVICES ── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    position: relative;
+  }
+  .service-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,200,180,0.15);
+  }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 800;
+    color: rgba(10,37,64,0.08);
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    line-height: 1;
+    transition: color 0.25s;
+  }
+  .service-card:hover .service-num { color: var(--accent2); }
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--accent2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .service-card h3 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    padding-right: 40px;
+  }
+  .service-card p { font-size: 14px; line-height: 1.65; color: var(--text-muted); }
+
+  /* ── PROCESS ── */
+  .process-section {
+    background: linear-gradient(150deg, #060f1a 0%, #0d1e2e 55%, #0f2236 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .process-section::before {
+    content: '';
+    position: absolute;
+    top: -180px; right: -180px;
+    width: 560px; height: 560px;
+    background: radial-gradient(circle, rgba(0,200,180,0.10) 0%, transparent 68%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .process-section::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; left: -120px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(0,86,179,0.13) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .process-section .section-tag {
+    background: rgba(0,200,180,0.15);
+    border-color: rgba(0,200,180,0.3);
+  }
+  .process-section .section-title { color: #fff; }
+  .process-section .section-sub   { color: rgba(255,255,255,0.58); }
+
+  /* Crescent background illustration */
+  .process-crescent {
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 520px;
+    height: 520px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .process-section .section-tag,
+  .process-section h2.section-title,
+  .process-section .section-sub { position: relative; z-index: 1; }
+  @media (max-width: 960px) { .process-crescent { width: 320px; height: 320px; right: -80px; } }
+  @media (max-width: 600px) { .process-crescent { display: none; } }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    left: 42px;
+    top: 40px;
+    bottom: 40px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), rgba(0,200,180,0.08));
+    pointer-events: none;
+  }
+  .process-step {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    padding: 28px 32px 28px 28px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius);
+    backdrop-filter: blur(6px);
+    transition: background 0.28s ease, border-color 0.28s ease, transform 0.28s cubic-bezier(0.16,1,0.3,1), box-shadow 0.28s ease;
+  }
+  .process-step:hover {
+    background: rgba(0,200,180,0.09);
+    border-color: rgba(0,200,180,0.32);
+    transform: translateX(6px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+  .step-num {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 50%;
+    background: rgba(0,200,180,0.14);
+    border: 2px solid rgba(0,200,180,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+    flex-shrink: 0;
+  }
+  .process-step:hover .step-num {
+    background: rgba(0,200,180,0.22);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 6px rgba(0,200,180,0.10);
+  }
+  .step-content { padding-top: 4px; }
+  .step-content h3 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .step-content p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.62); }
+
+  /* ── DOCUMENTS ── */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .doc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 16px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .doc-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .doc-icon { font-size: 22px; flex-shrink: 0; }
+  .doc-card span {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.35;
+  }
+
+  /* ── WHY US ── */
+  .why-section { background: var(--primary); }
+  [data-theme="dark"] .why-section { background: #0d1e2e; }
+  .why-section .section-title { color: #fff; }
+  .why-section .section-sub { color: rgba(255,255,255,0.55); }
+  .why-section .section-tag { background: rgba(0,200,180,0.15); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .why-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  }
+  .why-card:hover { background: rgba(0,200,180,0.10); border-color: rgba(0,200,180,0.35); transform: translateY(-3px); }
+  .why-icon { font-size: 32px; margin-bottom: 16px; }
+  .why-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .why-card p { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.55); }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--bg);
+    text-align: center;
+  }
+  .cta-box {
+    background: linear-gradient(135deg, var(--primary) 0%, #0d3a65 100%);
+    border-radius: 24px;
+    padding: 80px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  [data-theme="dark"] .cta-box { background: linear-gradient(135deg, #0d1e2e 0%, #0f2a45 100%); }
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.07;
+  }
+  .cta-box h2 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .cta-box p { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 36px; position: relative; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-white {
+    padding: 14px 32px;
+    background: #fff;
+    color: var(--primary);
+    border: none;
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(255,255,255,0.2); }
+  .btn-ghost {
+    padding: 14px 32px;
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 40px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.7); }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--bg);
+    padding: 80px 5%;
+  }
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 40px;
+    align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .contact-left .section-tag { margin-bottom: 14px; }
+  .contact-left .section-title { margin-bottom: 10px; font-size: clamp(24px, 2.8vw, 36px); }
+  .contact-left .section-sub { font-size: 14.5px; margin-bottom: 32px; }
+
+  .contact-cards { display: flex; flex-direction: column; gap: 12px; }
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .contact-card:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+  }
+  .ci-icon {
+    width: 42px; height: 42px; min-width: 42px;
+    background: var(--accent2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .ci-text { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
+  .ci-sub  { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+  .contact-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 20px 0 16px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.05em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .contact-divider::before, .contact-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .contact-trust { display: flex; gap: 8px; flex-wrap: wrap; }
+  .trust-badge {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+    background: var(--accent2); color: var(--accent);
+    border: 1px solid rgba(0,200,180,0.25);
+    border-radius: 20px; padding: 4px 12px;
+  }
+
+  /* ── CONTACT FORM ── */
+  .contact-form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-form-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #0056b3);
+  }
+  .contact-form-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 700; color: var(--text);
+    margin-bottom: 4px;
+  }
+  .contact-form-card .form-sub {
+    font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+  .form-group label {
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.03em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 10px 14px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    appearance: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: var(--surface);
+  }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233d5878' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+  [data-theme="dark"] .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237ab3cc' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); }
+  .form-submit {
+    width: 100%; padding: 13px 24px;
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 40px;
+    font-family: var(--font-display); font-size: 14px; font-weight: 600;
+    letter-spacing: 0.01em; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), box-shadow 0.18s ease;
+    margin-top: 4px;
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px var(--accent-glow); }
+  .form-submit:active { transform: scale(0.97); }
+  .form-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px; }
+
+  /* contact-item kept for JS compat */
+  .contact-item {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    opacity: 0; transform: translateX(-16px);
+    transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1);
+  }
+  .contact-item.visible { opacity: 1; transform: none; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--primary);
+    padding: 60px 5% 32px;
+    color: rgba(255,255,255,0.6);
+  }
+  [data-theme="dark"] footer { background: #060f1a; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand p { font-size: 14px; line-height: 1.7; margin-top: 16px; max-width: 280px; }
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { font-size: 13px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+  }
+  .footer-bottom .logo-text { color: #fff; }
+  .footer-bottom .logo-text span { color: var(--accent); }
+  .footer-badges { display: flex; gap: 10px; }
+  .f-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    background: rgba(0,200,180,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(0,200,180,0.3);
+    border-radius: 20px;
+    padding: 4px 10px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* Section-level reveal */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* Stagger: children animate in sequence when parent becomes visible */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
+  }
+  .stagger > *.child-visible { opacity: 1; transform: none; }
+
+  /* Inline reveal helpers */
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-18px);
+    transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-left.visible { opacity: 1; transform: none; }
+
+  /* ── NAV SCROLL STATE ── */
+  nav { transition: height 0.3s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease, background 0.4s; }
+  nav.scrolled {
+    height: 60px;
+    box-shadow: 0 2px 32px rgba(10,37,64,0.13);
+    background: rgba(255,255,255,0.97);
+  }
+  [data-theme="dark"] nav.scrolled { background: rgba(6,15,26,0.97); }
+
+  /* ── NAV LINK UNDERLINE ── */
+  .nav-links a { position: relative; }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.25s cubic-bezier(0.16,1,0.3,1);
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── BUTTON PRESS ── */
+  .btn-primary, .btn-nav, .btn-white, .btn-outline, .btn-ghost {
+    transition: transform 0.18s cubic-bezier(0.16,1,0.3,1),
+                box-shadow 0.18s ease,
+                background 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease;
+  }
+  .btn-primary:active, .btn-nav:active, .btn-white:active { transform: scale(0.96) translateY(0) !important; }
+  .btn-outline:active, .btn-ghost:active { transform: scale(0.97) !important; }
+
+  /* ── LOGO HOVER ── */
+  .logo-icon { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease; }
+  .nav-logo:hover .logo-icon { transform: rotate(-8deg) scale(1.08); box-shadow: 0 6px 20px var(--accent-glow); }
+
+  /* ── CONTACT ITEM REVEAL ── */
+  .contact-item {
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1);
+  }
+  .contact-item.visible { opacity: 1; transform: none; }
+
+  /* ── SECTION TAG ── */
+  .section-tag {
+    animation: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .section-tag.visible { opacity: 1; transform: none; }
+
+  /* ── STAT COUNTER ── */
+  .stat-item { transition: transform 0.3s ease; }
+  .stat-item:hover { transform: translateY(-3px); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    .hero-visual { display: none; }
+    .vm-grid, .reg-grid, .services-grid, .why-grid { grid-template-columns: 1fr 1fr; }
+    .docs-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .vm-grid, .reg-grid, .services-grid, .why-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .form-row { grid-template-columns: 1fr; }
+    .cta-box { padding: 48px 24px; }
+    .contact-form-card { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="Crescent Clinical Development_20260529_204940_0000.png" class="logo-img" alt="Crescent Clinical Development">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#regulations">Regulations</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <a href="#contact" class="btn-nav">Get in Touch →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Regulatory — Clinical — Compliance</div>
+    <h1 class="hero-title" id="hero-title-el">Bridging Manufacturing<em>& Regulatory Excellence</em></h1>
+    <p class="hero-sub" id="hero-sub-el">Specialist clinical trial services for pharmaceutical and medical device manufacturers. End-to-end compliance with EU MDR, CDSCO &amp; US FDA regulations.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services →</a>
+      <a href="#contact" class="btn-outline">Contact Us</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num"><span class="stat-count" data-target="3">3</span><span>+</span></div>
+        <div class="stat-label">Regulatory Frameworks</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="stat-count" data-target="360">360</span><span>°</span></div>
+        <div class="stat-label">Clinical Support</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span class="stat-count" data-target="100">100</span><span>%</span></div>
+        <div class="stat-label">Compliance Focus</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero SVG Illustration -->
+  <div class="hero-visual">
+    <svg width="380" height="380" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="190" cy="190" r="160" stroke="rgba(0,200,180,0.12)" stroke-width="1"/>
+      <circle cx="190" cy="190" r="120" stroke="rgba(0,200,180,0.18)" stroke-width="1" stroke-dasharray="6 4"/>
+      <circle cx="190" cy="190" r="80" stroke="rgba(0,200,180,0.25)" stroke-width="1"/>
+      <!-- Central crescent -->
+      <circle cx="190" cy="190" r="46" fill="rgba(0,200,180,0.15)" stroke="rgba(0,200,180,0.4)" stroke-width="1.5"/>
+      <path d="M190 144 A46 46 0 0 1 190 236 A30 30 0 0 0 190 144Z" fill="rgba(0,200,180,0.6)"/>
+      <!-- Orbiting nodes -->
+      <circle cx="190" cy="30" r="10" fill="rgba(0,200,180,0.8)" stroke="rgba(0,200,180,1)" stroke-width="1.5"/>
+      <text x="190" y="34" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">FDA</text>
+      <circle cx="330" cy="245" r="10" fill="rgba(0,200,180,0.8)"/>
+      <text x="330" y="249" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif" font-weight="bold">MDR</text>
+      <circle cx="50" cy="245" r="10" fill="rgba(0,200,180,0.8)"/>
+      <text x="50" y="249" text-anchor="middle" fill="white" font-size="7" font-family="sans-serif" font-weight="bold">CDSCO</text>
+      <!-- Connecting lines -->
+      <line x1="190" y1="40" x2="190" y2="110" stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+      <line x1="321" y1="240" x2="265" y2="216" stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+      <line x1="59" y1="240" x2="115" y2="216" stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+      <!-- Outer ring dots -->
+      <circle cx="305" cy="80" r="5" fill="rgba(0,200,180,0.4)"/>
+      <circle cx="75" cy="80" r="5" fill="rgba(0,200,180,0.4)"/>
+      <circle cx="350" cy="190" r="5" fill="rgba(0,200,180,0.4)"/>
+      <circle cx="30" cy="190" r="5" fill="rgba(0,200,180,0.4)"/>
+      <circle cx="190" cy="350" r="5" fill="rgba(0,200,180,0.4)"/>
+    </svg>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee-track">
+    <div class="marquee-item">EU MDR 2017/745 Compliance</div>
+    <div class="marquee-item">US FDA 21 CFR Part 812</div>
+    <div class="marquee-item">CDSCO Medical Device Rules</div>
+    <div class="marquee-item">GCP / ICH E6 Guidelines</div>
+    <div class="marquee-item">Clinical Investigation Plans</div>
+    <div class="marquee-item">ISO 14155 Compliance</div>
+    <div class="marquee-item">Regulatory Strategy</div>
+    <div class="marquee-item">Document Preparation</div>
+    <div class="marquee-item">EU MDR 2017/745 Compliance</div>
+    <div class="marquee-item">US FDA 21 CFR Part 812</div>
+    <div class="marquee-item">CDSCO Medical Device Rules</div>
+    <div class="marquee-item">GCP / ICH E6 Guidelines</div>
+    <div class="marquee-item">Clinical Investigation Plans</div>
+    <div class="marquee-item">ISO 14155 Compliance</div>
+    <div class="marquee-item">Regulatory Strategy</div>
+    <div class="marquee-item">Document Preparation</div>
+  </div>
+</div>
+
+<!-- ABOUT: VISION & MISSION -->
+<section id="about">
+  <div class="section-tag reveal-left">Our Foundation</div>
+  <h2 class="section-title">Vision & Mission</h2>
+  <p class="section-sub">We exist to close the gap between the world of manufacturing and the world of regulation — making clinical compliance accessible, rigorous, and efficient.</p>
+  <div class="vm-grid fade-in stagger">
+    <div class="vm-card">
+      <div class="vm-icon">🔭</div>
+      <h3>Our Vision</h3>
+      <p>To identify and bridge the critical gap between pharmaceutical and medical device manufacturing and regulatory requirements — ensuring that innovative products reach patients safely, compliantly, and efficiently across global markets.</p>
+    </div>
+    <div class="vm-card">
+      <div class="vm-icon">🎯</div>
+      <h3>Our Mission</h3>
+      <p>To carry out clinical trials in full compliance with EU MDR, CDSCO, and US FDA regulations — while extending world-class clinical document preparation services that empower manufacturers through every stage of the regulatory journey.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REGULATIONS -->
+<section id="regulations" class="reg-section">
+  <div class="section-tag reveal-left">Regulatory Expertise</div>
+  <h2 class="section-title">Frameworks We Work In</h2>
+  <p class="section-sub">Deep expertise across the three major regulatory frameworks governing pharmaceutical and medical device clinical trials worldwide.</p>
+  <div class="reg-grid fade-in stagger">
+    <div class="reg-card">
+      <div class="reg-flag">🇪🇺</div>
+      <h3>EU MDR</h3>
+      <div class="reg-full">European Medical Device Regulation</div>
+      <p>Full compliance with MDR 2017/745 and IVDR 2017/746 for CE marking, clinical evaluation, post-market clinical follow-up, and PMCF studies.</p>
+      <div class="reg-tags">
+        <span class="reg-tag">MDR 2017/745</span>
+        <span class="reg-tag">IVDR 2017/746</span>
+        <span class="reg-tag">PMCF</span>
+        <span class="reg-tag">CER</span>
+      </div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-flag">🇮🇳</div>
+      <h3>CDSCO</h3>
+      <div class="reg-full">Central Drugs Standard Control Organisation</div>
+      <p>Navigation of the Indian regulatory landscape including New Drugs & Clinical Trials Rules 2019, device licensing under MDR 2017, and site approvals.</p>
+      <div class="reg-tags">
+        <span class="reg-tag">NDCT Rules 2019</span>
+        <span class="reg-tag">MDR 2017</span>
+        <span class="reg-tag">IEC</span>
+        <span class="reg-tag">BA/BE</span>
+      </div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-flag">🇺🇸</div>
+      <h3>US FDA</h3>
+      <div class="reg-full">Food & Drug Administration</div>
+      <p>Comprehensive support for IDE/IND applications, 510(k) and PMA submissions, FDA GCP inspections, and device study regulatory strategy.</p>
+      <div class="reg-tags">
+        <span class="reg-tag">IDE / IND</span>
+        <span class="reg-tag">510(k)</span>
+        <span class="reg-tag">PMA</span>
+        <span class="reg-tag">21 CFR 812</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag reveal-left">What We Offer</div>
+  <h2 class="section-title">Clinical Development Services</h2>
+  <p class="section-sub">From trial design to final submission — comprehensive support across every phase of clinical development and documentation.</p>
+  <div class="services-grid fade-in stagger">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-icon">🧪</div>
+      <h3>Clinical Trial Management</h3>
+      <p>End-to-end management of clinical investigations for pharmaceutical products and medical devices — from protocol design to site close-out and final reporting.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-icon">📋</div>
+      <h3>Regulatory Strategy & Consulting</h3>
+      <p>Tailored regulatory roadmaps to navigate EU MDR, CDSCO, and FDA requirements. Gap analysis, submission planning, and authority interactions.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-icon">📄</div>
+      <h3>Clinical Document Preparation</h3>
+      <p>Expert authoring of all clinical documents — Clinical Investigation Plans (CIP), Clinical Study Reports (CSR), Clinical Evaluation Reports (CER), Investigator Brochures, and more.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-icon">🔬</div>
+      <h3>Medical Device Clinical Evaluation</h3>
+      <p>Systematic literature reviews, clinical evidence appraisal, and CER/SSCP preparation in accordance with MEDDEV 2.7/1 Rev 4 and EU MDR Annex XIV.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-icon">💊</div>
+      <h3>Pharma Clinical Trials</h3>
+      <p>Phase I–IV clinical trial support including protocol development, site selection, monitoring, pharmacovigilance, and regulatory submissions.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-icon">🛡️</div>
+      <h3>Post-Market Clinical Follow-Up</h3>
+      <p>Structured PMCF plans and studies to meet ongoing post-market clinical requirements under EU MDR, including registry integration and real-world evidence collection.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="process-section">
+
+  <!-- Decorative crescent (mirrors the brand logo) -->
+  <svg class="process-crescent" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="cres-glow" cx="40%" cy="50%" r="55%">
+        <stop offset="0%"   stop-color="#00c8b4" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#00c8b4" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <!-- Soft glow behind the crescent -->
+    <ellipse cx="150" cy="200" rx="155" ry="165" fill="url(#cres-glow)"/>
+
+    <!-- Outer crescent stroke — thin elegant ring -->
+    <path d="M 287,77 A 170,170 0 1 0 287,323 A 148,148 0 0 1 287,77 Z"
+          fill="rgba(0,200,180,0.07)"
+          stroke="rgba(0,200,180,0.28)"
+          stroke-width="1.5"/>
+
+    <!-- Second inner outline ring for depth -->
+    <path d="M 271,100 A 145,145 0 1 0 271,300 A 126,126 0 0 1 271,100 Z"
+          fill="none"
+          stroke="rgba(0,200,180,0.10)"
+          stroke-width="1"/>
+
+    <!-- Medical cross — centred in crescent body -->
+    <g fill="rgba(0,200,180,0.32)">
+      <rect x="121" y="178" width="15" height="44" rx="5"/>
+      <rect x="106" y="193" width="44" height="15" rx="5"/>
+    </g>
+
+    <!-- Subtle dot accents at crescent tips -->
+    <circle cx="287" cy="77"  r="4" fill="rgba(0,200,180,0.45)"/>
+    <circle cx="287" cy="323" r="4" fill="rgba(0,200,180,0.45)"/>
+  </svg>
+
+  <div class="section-tag reveal-left">How We Work</div>
+  <h2 class="section-title">Our Process</h2>
+  <p class="section-sub">A structured, transparent methodology that ensures regulatory compliance at every milestone.</p>
+  <div class="process-steps fade-in stagger">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <h3>Discovery & Gap Analysis</h3>
+        <p>We assess your product, existing data, and regulatory pathway to identify the precise gap between your current documentation and the requirements of your target market(s).</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <h3>Regulatory Strategy Design</h3>
+        <p>A tailored compliance strategy is developed, selecting the appropriate clinical pathway — whether first-in-human study, equivalence approach, or literature-based evaluation.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <h3>Protocol & Document Development</h3>
+        <p>We author all required clinical documents — CIP, protocols, IB, ICF, and ethics submissions — built to the precise standards of the applicable regulation.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <h3>Trial Execution & Monitoring</h3>
+        <p>Our team oversees site management, data quality, adverse event reporting, and ongoing regulatory communication throughout the clinical investigation.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <h3>Analysis, Reporting & Submission</h3>
+        <p>Final clinical study reports, integrated summaries, and dossier preparation — ready for submission to EU Notified Bodies, CDSCO, or the FDA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS -->
+<section id="documents">
+  <div class="section-tag reveal-left">Documentation</div>
+  <h2 class="section-title">Clinical Documents We Prepare</h2>
+  <p class="section-sub">A comprehensive suite of regulatory and clinical documents authored by subject-matter experts.</p>
+  <div class="docs-grid fade-in stagger">
+    <div class="doc-card"><div class="doc-icon">📑</div><span>Clinical Investigation Plan (CIP)</span></div>
+    <div class="doc-card"><div class="doc-icon">📊</div><span>Clinical Study Report (CSR)</span></div>
+    <div class="doc-card"><div class="doc-icon">🔍</div><span>Clinical Evaluation Report (CER)</span></div>
+    <div class="doc-card"><div class="doc-icon">📰</div><span>Literature Review & Appraisal</span></div>
+    <div class="doc-card"><div class="doc-icon">🧾</div><span>Investigator's Brochure (IB)</span></div>
+    <div class="doc-card"><div class="doc-icon">✅</div><span>Informed Consent Form (ICF)</span></div>
+    <div class="doc-card"><div class="doc-icon">🏥</div><span>Ethics / IEC Submissions</span></div>
+    <div class="doc-card"><div class="doc-icon">📬</div><span>Regulatory Authority Submissions</span></div>
+    <div class="doc-card"><div class="doc-icon">🗂️</div><span>PMCF Plan & Evaluation Report</span></div>
+    <div class="doc-card"><div class="doc-icon">📋</div><span>Summary of Safety & Clinical Performance (SSCP)</span></div>
+    <div class="doc-card"><div class="doc-icon">⚡</div><span>IDE / IND Applications</span></div>
+    <div class="doc-card"><div class="doc-icon">🔐</div><span>Risk Management File Contributions</span></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="section-tag reveal-left">Why Choose Us</div>
+  <h2 class="section-title">The Crescent Advantage</h2>
+  <p class="section-sub">We combine deep regulatory knowledge with clinical expertise to deliver outcomes that bridge the gap between manufacturing and market approval.</p>
+  <div class="why-grid fade-in stagger">
+    <div class="why-card">
+      <div class="why-icon">⚖️</div>
+      <h3>Multi-Regulatory Mastery</h3>
+      <p>Simultaneous navigation of EU MDR, CDSCO, and US FDA — reducing time-to-market through parallel strategy development.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🏭</div>
+      <h3>Manufacturing Perspective</h3>
+      <p>We understand the manufacturer's lens — translating complex clinical and regulatory requirements into actionable, practical compliance roadmaps.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔗</div>
+      <h3>Gap Bridging Specialists</h3>
+      <p>Our unique positioning at the interface of manufacturing and regulation means we anticipate problems before they become submission failures.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📐</div>
+      <h3>Document Excellence</h3>
+      <p>Every document is authored to the exacting standards of the applicable regulatory framework — reviewer-ready on first submission.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌐</div>
+      <h3>Global Reach, Local Insight</h3>
+      <p>A team that understands the nuances of regulatory environments in India, Europe, and North America — ensuring culturally and contextually appropriate submissions.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⚙️</div>
+      <h3>End-to-End Partnership</h3>
+      <p>From first concept to post-market follow-up, we stay with you — providing continuity across the entire product lifecycle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-box">
+    <h2 id="cta-h2">Ready to Bridge the Gap?</h2>
+    <p>Let's discuss your regulatory and clinical trial requirements. Our experts are ready to design a tailored compliance pathway for your product.</p>
+    <div class="cta-actions">
+      <a href="#contact" class="btn-white">Start a Conversation</a>
+      <a href="#services" class="btn-ghost">View All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-wrapper">
+
+    <!-- LEFT: Info panel -->
+    <div class="contact-left fade-in">
+      <div class="section-tag visible">Get in Touch</div>
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-sub">Whether you need full clinical trial management, a specific document, or a regulatory strategy consultation — we're ready to help.</p>
+
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="ci-icon">✉️</div>
+          <div>
+            <div class="ci-text" id="ci-email">info@crescentclinical.com</div>
+            <div class="ci-sub">General Enquiries</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="ci-icon">📞</div>
+          <div>
+            <div class="ci-text" id="ci-phone">+91 99525 20472</div>
+            <div class="ci-sub">Mon – Fri, 9:00 – 18:00 IST</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-divider">Regulatory coverage</div>
+      <div class="contact-trust">
+        <span class="trust-badge">EU MDR</span>
+        <span class="trust-badge">CDSCO</span>
+        <span class="trust-badge">US FDA</span>
+        <span class="trust-badge">GCP</span>
+        <span class="trust-badge">ISO 14155</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Contact form -->
+    <div class="contact-form-card fade-in">
+      <h3>Send us a message</h3>
+      <p class="form-sub">We typically respond within one business day.</p>
+
+      <form id="contact-form" onsubmit="handleContactSubmit(event)">
+        <input type="hidden" name="_subject" value="New Enquiry — Crescent Clinical Development">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cf-name">Full Name</label>
+            <input type="text" id="cf-name" name="name" placeholder="Jane Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email Address</label>
+            <input type="email" id="cf-email" name="email" placeholder="jane@company.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cf-company">Company / Organisation</label>
+            <input type="text" id="cf-company" name="company" placeholder="Acme Pharma Ltd.">
+          </div>
+          <div class="form-group">
+            <label for="cf-service">Service of Interest</label>
+            <select id="cf-service" name="service">
+              <option value="" disabled selected>Select a service…</option>
+              <option>Clinical Trial Management</option>
+              <option>Regulatory Strategy &amp; Consulting</option>
+              <option>Clinical Document Preparation</option>
+              <option>Medical Device Clinical Evaluation</option>
+              <option>Pharma Clinical Trials</option>
+              <option>Post-Market Clinical Follow-Up</option>
+              <option>Other / General Enquiry</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" placeholder="Tell us about your product, regulatory target, and how we can help…" required></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="form-submit-btn">
+          Send Message
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="form-note">Your information is kept strictly confidential.</p>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <img src="Crescent Clinical Development_20260529_204940_0000.png" class="logo-img" style="height:36px;" alt="Crescent Clinical Development">
+      </div>
+      <p>Specialist clinical trial and regulatory compliance services for pharmaceutical and medical device manufacturers. Bridging the gap between innovation and approval.</p>
+      <div style="margin-top:20px; display:flex; gap:8px; flex-wrap:wrap;">
+        <span class="f-badge">EU MDR</span>
+        <span class="f-badge">CDSCO</span>
+        <span class="f-badge">US FDA</span>
+        <span class="f-badge">GCP</span>
+        <span class="f-badge">ISO 14155</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Clinical Trial Management</a></li>
+        <li><a href="#services">Regulatory Strategy</a></li>
+        <li><a href="#services">Document Preparation</a></li>
+        <li><a href="#services">Medical Device CER</a></li>
+        <li><a href="#services">PMCF Studies</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Regulations</h4>
+      <ul>
+        <li><a href="#regulations">EU MDR 2017/745</a></li>
+        <li><a href="#regulations">EU IVDR 2017/746</a></li>
+        <li><a href="#regulations">CDSCO / MDR 2017</a></li>
+        <li><a href="#regulations">US FDA 21 CFR</a></li>
+        <li><a href="#regulations">ICH Guidelines</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="nav-logo">
+      <img src="Crescent Clinical Development_20260529_204940_0000.png" class="logo-img--sm" style="height:28px;" alt="Crescent">
+    </div>
+    <p id="footer-copy" style="font-size:12px;">© 2025 Crescent Clinical Development. All rights reserved.</p>
+    <div style="font-size:12px; color:rgba(255,255,255,0.35);">Designed for compliance. Built for excellence.</div>
+  </div>
+</footer>
+
+<script>
+  // ── THEME TOGGLE ──
+  function toggleTheme() {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('themeBtn').textContent = isDark ? '🌙' : '☀️';
+  }
+
+  // ── NAV SCROLL SHRINK ──
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 48);
+  }, { passive: true });
+
+  // ── SCROLL ANIMATIONS (fade-in + reveal-left) ──
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in, .reveal-left').forEach(el => revealObserver.observe(el));
+
+  // ── STAGGERED GRID CHILDREN ──
+  const staggerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      [...e.target.children].forEach((child, i) => {
+        setTimeout(() => child.classList.add('child-visible'), i * 90);
+      });
+      staggerObserver.unobserve(e.target);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.stagger').forEach(el => staggerObserver.observe(el));
+
+  // ── CONTACT ITEMS STAGGER ──
+  const contactObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      document.querySelectorAll('.contact-item').forEach((item, i) => {
+        setTimeout(() => item.classList.add('visible'), i * 120);
+      });
+      contactObserver.unobserve(e.target);
+    });
+  }, { threshold: 0.2 });
+  const contactSection = document.querySelector('.contact-section');
+  if (contactSection) contactObserver.observe(contactSection);
+
+  // ── STAT COUNTER ANIMATION ──
+  function animateCount(el) {
+    const target = +el.dataset.target;
+    const duration = 1600;
+    const start = performance.now();
+    (function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    })(start);
+  }
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      animateCount(e.target);
+      counterObserver.unobserve(e.target);
+    });
+  }, { threshold: 0.6 });
+  document.querySelectorAll('.stat-count').forEach(el => counterObserver.observe(el));
+
+  // ── SMOOTH SCROLL ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  // ── CONTACT FORM SUBMIT (Formspree) ──
+  // Replace YOUR_FORM_ID below with the ID from formspree.io/forms
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeewqypl';
+
+  async function handleContactSubmit(e) {
+    e.preventDefault();
+    const btn  = document.getElementById('form-submit-btn');
+    const form = document.getElementById('contact-form');
+    const arrowSVG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    btn.innerHTML = 'Sending…';
+    btn.disabled  = true;
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+
+      if (res.ok) {
+        btn.innerHTML = '✓ Message Sent';
+        btn.style.background = '#059669';
+        form.reset();
+        setTimeout(() => {
+          btn.innerHTML      = 'Send Message ' + arrowSVG;
+          btn.style.background = '';
+          btn.disabled       = false;
+        }, 4000);
+      } else {
+        const data = await res.json();
+        const msg  = data?.errors?.map(err => err.message).join(', ') || 'Submission failed. Please try again.';
+        btn.innerHTML      = '✗ ' + msg;
+        btn.style.background = '#dc2626';
+        btn.disabled       = false;
+        setTimeout(() => {
+          btn.innerHTML      = 'Send Message ' + arrowSVG;
+          btn.style.background = '';
+        }, 4000);
+      }
+    } catch {
+      btn.innerHTML      = '✗ Network error. Please try again.';
+      btn.style.background = '#dc2626';
+      btn.disabled       = false;
+      setTimeout(() => {
+        btn.innerHTML      = 'Send Message ' + arrowSVG;
+        btn.style.background = '';
+      }, 4000);
+    }
+  }
+</script>
+</body>
+</html>
