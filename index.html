@@ -757,8 +757,8 @@
   /* ── DOCUMENTS ── */
   .docs-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
   }
   .doc-card {
     background: var(--surface);
@@ -1337,6 +1337,104 @@
 
   /* ── RESPONSIVE ── */
 
+  /* ── SERVICES CAROUSEL ── */
+  .sc-carousel {
+    --sc-gap: 20px;
+    --sc-cpv: 3;           /* cards per view — overridden by media queries */
+    position: relative;
+    user-select: none;
+  }
+  .sc-viewport {
+    overflow: hidden;
+    border-radius: var(--radius);
+    padding-top: 14px;
+    margin-top: -14px;
+    padding-bottom: 4px;
+  }
+  .sc-track {
+    display: flex;
+    gap: var(--sc-gap);
+    transition: transform 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  /* Width set by JS based on viewport size */
+  .sc-track .service-card {
+    flex-shrink: 0;
+    outline-offset: 3px;
+  }
+  .sc-track .service-card:focus-visible {
+    outline: 2px solid var(--accent);
+    border-color: var(--accent);
+  }
+  /* Controls row */
+  .sc-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .sc-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+    box-shadow: var(--shadow-sm);
+  }
+  .sc-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(0,200,180,0.30);
+  }
+  .sc-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .sc-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+  }
+  /* Dots */
+  .sc-dots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: var(--border);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s, width 0.3s, border-radius 0.3s;
+  }
+  .sc-dot[aria-selected="true"] {
+    background: var(--accent);
+    width: 26px;
+    border-radius: 4px;
+  }
+  .sc-dot:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  /* Responsive cpv */
+  @media (max-width: 900px)  { .sc-carousel { --sc-cpv: 2; } }
+  @media (max-width: 560px)  { .sc-carousel { --sc-cpv: 1; } }
+
   /* ── HAMBURGER ── */
   .hamburger {
     display: none;
@@ -1395,7 +1493,7 @@
     .hero { padding: 110px 4% 60px; }
     .contact-section { padding: 80px 4%; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-    .docs-grid { grid-template-columns: repeat(3, 1fr); }
+    .docs-grid { grid-template-columns: repeat(4, 1fr); }
     .contact-wrapper { gap: 36px; }
     .cta-box { padding: 64px 48px; }
   }
@@ -1441,6 +1539,7 @@
     .services-grid { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
     .docs-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .docs-grid .doc-card span { font-size: 12px; }
     .footer-grid { grid-template-columns: 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
     .footer-badges { flex-wrap: wrap; justify-content: center; }
@@ -1464,7 +1563,7 @@
   /* ── SMALL MOBILE (≤400px) ── */
   @media (max-width: 400px) {
     h1.hero-title { font-size: clamp(30px, 10vw, 44px); }
-    .docs-grid { grid-template-columns: 1fr; }
+    .docs-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-badge { font-size: 10px; padding: 5px 12px; }
     .vm-card, .reg-card, .service-card, .why-card { padding: 20px 16px; }
     .cta-box h2 { font-size: 24px; }
@@ -1591,7 +1690,7 @@
 <!-- ABOUT: VISION & MISSION -->
 <section id="about">
   <div class="section-tag reveal-left">Our Foundation</div>
-  <h2 class="section-title">Vision & Mission</h2>
+  <h2 class="section-title">About Us</h2>
   <p class="section-sub">We exist to close the gap between the world of manufacturing and the world of regulation — making clinical compliance accessible, rigorous, and efficient.</p>
   <div class="vm-grid fade-in stagger">
     <div class="vm-card">
@@ -1647,7 +1746,6 @@
       <div class="reg-full">Food & Drug Administration</div>
       <p>Comprehensive support for IDE/IND applications, 510(k) and PMA submissions, FDA GCP inspections, and device study regulatory strategy.</p>
       <div class="reg-tags">
-        <span class="reg-tag">IDE / IND</span>
         <span class="reg-tag">510(k)</span>
         <span class="reg-tag">PMA</span>
         <span class="reg-tag">21 CFR 812</span>
@@ -1661,43 +1759,62 @@
   <div class="section-tag reveal-left">What We Offer</div>
   <h2 class="section-title">Clinical Development Services</h2>
   <p class="section-sub">From trial design to final submission — comprehensive support across every phase of clinical development and documentation.</p>
-  <div class="services-grid fade-in stagger">
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <div class="service-icon">🧪</div>
-      <h3>Clinical Trial Management</h3>
-      <p>End-to-end management of clinical investigations for pharmaceutical products and medical devices — from protocol design to site close-out and final reporting.</p>
+
+  <div class="sc-carousel" role="region" aria-label="Clinical Development Services" aria-roledescription="carousel" id="scCarousel">
+
+    <!-- Track -->
+    <div class="sc-viewport" id="scViewport">
+      <div class="sc-track" id="scTrack" aria-live="polite" aria-atomic="false">
+
+        <div class="service-card" role="group" aria-roledescription="slide" aria-label="Slide 1 of 5" tabindex="0">
+          <div class="service-num">01</div>
+          <div class="service-icon">🧪</div>
+          <h3>Clinical Trial Management</h3>
+          <p>End-to-end management of clinical investigations for pharmaceutical products and medical devices — from protocol design to site close-out and final reporting.</p>
+        </div>
+
+        <div class="service-card" role="group" aria-roledescription="slide" aria-label="Slide 2 of 5" tabindex="-1">
+          <div class="service-num">02</div>
+          <div class="service-icon">📋</div>
+          <h3>Regulatory Strategy & Consulting</h3>
+          <p>Tailored regulatory roadmaps to navigate EU MDR, CDSCO, and FDA requirements. Gap analysis, submission planning, and authority interactions.</p>
+        </div>
+
+        <div class="service-card" role="group" aria-roledescription="slide" aria-label="Slide 3 of 5" tabindex="-1">
+          <div class="service-num">03</div>
+          <div class="service-icon">📄</div>
+          <h3>Clinical Document Preparation</h3>
+          <p>Expert authoring of all clinical documents — Clinical Investigation Plans (CIP), Clinical Study Reports (CSR), Clinical Evaluation Reports (CER), Investigator Brochures, and more.</p>
+        </div>
+
+        <div class="service-card" role="group" aria-roledescription="slide" aria-label="Slide 4 of 5" tabindex="-1">
+          <div class="service-num">04</div>
+          <div class="service-icon">🔬</div>
+          <h3>Medical Device Clinical Evaluation</h3>
+          <p>Systematic literature reviews, clinical evidence appraisal, and CER/SSCP preparation in accordance with MEDDEV 2.7/1 Rev 4 and EU MDR Annex XIV.</p>
+        </div>
+
+        <div class="service-card" role="group" aria-roledescription="slide" aria-label="Slide 5 of 5" tabindex="-1">
+          <div class="service-num">05</div>
+          <div class="service-icon">🛡️</div>
+          <h3>Post-Market Clinical Follow-Up</h3>
+          <p>Structured PMCF plans and studies to meet ongoing post-market clinical requirements under EU MDR, including registry integration and real-world evidence collection.</p>
+        </div>
+
+      </div>
     </div>
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <div class="service-icon">📋</div>
-      <h3>Regulatory Strategy & Consulting</h3>
-      <p>Tailored regulatory roadmaps to navigate EU MDR, CDSCO, and FDA requirements. Gap analysis, submission planning, and authority interactions.</p>
+
+    <!-- Controls -->
+    <div class="sc-controls">
+      <button class="sc-btn sc-prev" id="scPrev" aria-label="Previous slide" aria-controls="scTrack">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="sc-dots" id="scDots" role="tablist" aria-label="Slide indicators"></div>
+      <button class="sc-btn sc-next" id="scNext" aria-label="Next slide" aria-controls="scTrack">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <div class="service-icon">📄</div>
-      <h3>Clinical Document Preparation</h3>
-      <p>Expert authoring of all clinical documents — Clinical Investigation Plans (CIP), Clinical Study Reports (CSR), Clinical Evaluation Reports (CER), Investigator Brochures, and more.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <div class="service-icon">🔬</div>
-      <h3>Medical Device Clinical Evaluation</h3>
-      <p>Systematic literature reviews, clinical evidence appraisal, and CER/SSCP preparation in accordance with MEDDEV 2.7/1 Rev 4 and EU MDR Annex XIV.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">05</div>
-      <div class="service-icon">💊</div>
-      <h3>Pharma Clinical Trials</h3>
-      <p>Phase I–IV clinical trial support including protocol development, site selection, monitoring, pharmacovigilance, and regulatory submissions.</p>
-    </div>
-    <div class="service-card">
-      <div class="service-num">06</div>
-      <div class="service-icon">🛡️</div>
-      <h3>Post-Market Clinical Follow-Up</h3>
-      <p>Structured PMCF plans and studies to meet ongoing post-market clinical requirements under EU MDR, including registry integration and real-world evidence collection.</p>
-    </div>
+
   </div>
 </section>
 
@@ -1810,10 +1927,8 @@
     <div class="doc-card"><div class="doc-icon">🧾</div><span>Investigator's Brochure (IB)</span></div>
     <div class="doc-card"><div class="doc-icon">✅</div><span>Informed Consent Form (ICF)</span></div>
     <div class="doc-card"><div class="doc-icon">🏥</div><span>Ethics / IEC Submissions</span></div>
-    <div class="doc-card"><div class="doc-icon">📬</div><span>Regulatory Authority Submissions</span></div>
     <div class="doc-card"><div class="doc-icon">🗂️</div><span>PMCF Plan & Evaluation Report</span></div>
     <div class="doc-card"><div class="doc-icon">📋</div><span>Summary of Safety & Clinical Performance (SSCP)</span></div>
-    <div class="doc-card"><div class="doc-icon">⚡</div><span>IDE / IND Applications</span></div>
     <div class="doc-card"><div class="doc-icon">🔐</div><span>Risk Management File Contributions</span></div>
   </div>
 </section>
@@ -1895,7 +2010,7 @@
         <div class="contact-card">
           <div class="ci-icon">✉️</div>
           <div>
-            <div class="ci-text" id="ci-email">info@crescentclinical.com</div>
+            <div class="ci-text" id="ci-email">crescentclinicaldevelopment@gmail.com</div>
             <div class="ci-sub">General Enquiries</div>
           </div>
         </div>
@@ -1948,7 +2063,7 @@
               <option>Regulatory Strategy &amp; Consulting</option>
               <option>Clinical Document Preparation</option>
               <option>Medical Device Clinical Evaluation</option>
-              <option>Pharma Clinical Trials</option>
+              
               <option>Post-Market Clinical Follow-Up</option>
               <option>Other / General Enquiry</option>
             </select>
@@ -2152,6 +2267,149 @@
     }
   }
 
+
+  // ── SERVICES CAROUSEL ──
+  (function () {
+    const carousel  = document.getElementById('scCarousel');
+    const viewport  = document.getElementById('scViewport');
+    const track     = document.getElementById('scTrack');
+    const dotsWrap  = document.getElementById('scDots');
+    const btnPrev   = document.getElementById('scPrev');
+    const btnNext   = document.getElementById('scNext');
+    const slides    = Array.from(track.querySelectorAll('.service-card'));
+    const TOTAL     = slides.length;
+    let current     = 0;
+
+    /* --- Helpers --- */
+    function cpv() {
+      const style = getComputedStyle(carousel);
+      return parseInt(style.getPropertyValue('--sc-cpv').trim()) || 3;
+    }
+    function maxIndex() { return Math.max(0, TOTAL - cpv()); }
+
+    /* --- Dots --- */
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      const pages = maxIndex() + 1;
+      for (let i = 0; i < pages; i++) {
+        const btn = document.createElement('button');
+        btn.className    = 'sc-dot';
+        btn.role         = 'tab';
+        btn.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        btn.setAttribute('tabindex', i === 0 ? '0' : '-1');
+        btn.addEventListener('click', () => goTo(i, true));
+        dotsWrap.appendChild(btn);
+      }
+    }
+
+    function updateDots() {
+      const dots = dotsWrap.querySelectorAll('.sc-dot');
+      dots.forEach((d, i) => {
+        const active = i === current;
+        d.setAttribute('aria-selected', active ? 'true' : 'false');
+        d.setAttribute('tabindex', active ? '0' : '-1');
+      });
+    }
+
+    /* --- Slide visibility & focus --- */
+    function updateSlides(focusActive) {
+      const n = cpv();
+      slides.forEach((s, i) => {
+        const visible = i >= current && i < current + n;
+        s.setAttribute('aria-hidden', visible ? 'false' : 'true');
+        s.setAttribute('tabindex', visible ? '0' : '-1');
+        s.inert = !visible;
+      });
+      if (focusActive) slides[current].focus({ preventScroll: true });
+    }
+
+    /* --- Card widths (calculated from viewport, not track) --- */
+    function setCardWidths() {
+      const n   = cpv();
+      const gap = parseFloat(getComputedStyle(track).gap) || 20;
+      const w   = (viewport.offsetWidth - gap * (n - 1)) / n;
+      slides.forEach(s => { s.style.width = w + 'px'; });
+    }
+
+    /* --- Translate --- */
+    function updateTrack() {
+      const gap   = parseFloat(getComputedStyle(track).gap) || 20;
+      const cardW = slides[0].offsetWidth + gap;
+      track.style.transform = `translateX(-${current * cardW}px)`;
+    }
+
+    /* --- Buttons --- */
+    function updateButtons() {
+      btnPrev.disabled = current === 0;
+      btnNext.disabled = current >= maxIndex();
+    }
+
+    /* --- Go to slide --- */
+    function goTo(index, focus = false) {
+      current = Math.max(0, Math.min(index, maxIndex()));
+      updateTrack();
+      updateDots();
+      updateButtons();
+      updateSlides(focus);
+    }
+
+    /* --- Event listeners --- */
+    btnPrev.addEventListener('click', () => goTo(current - 1, true));
+    btnNext.addEventListener('click', () => goTo(current + 1, true));
+
+    /* Keyboard: arrow keys on carousel region */
+    carousel.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1, true); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1, true); }
+      if (e.key === 'Home')       { e.preventDefault(); goTo(0, true); }
+      if (e.key === 'End')        { e.preventDefault(); goTo(maxIndex(), true); }
+    });
+
+    /* Dot keyboard: left/right arrows within tablist */
+    dotsWrap.addEventListener('keydown', e => {
+      const dots = [...dotsWrap.querySelectorAll('.sc-dot')];
+      const idx  = dots.indexOf(document.activeElement);
+      if (e.key === 'ArrowRight' && idx < dots.length - 1) { e.preventDefault(); dots[idx + 1].focus(); goTo(idx + 1); }
+      if (e.key === 'ArrowLeft'  && idx > 0)               { e.preventDefault(); dots[idx - 1].focus(); goTo(idx - 1); }
+    });
+
+    /* Touch / swipe */
+    let touchStartX = 0;
+    viewport.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    viewport.addEventListener('touchend',   e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1, false);
+    }, { passive: true });
+
+    /* Resize: rebuild layout */
+    window.addEventListener('resize', () => { setCardWidths(); buildDots(); goTo(Math.min(current, maxIndex())); });
+
+    /* Auto-scroll */
+    let autoTimer;
+    function startAuto() {
+      autoTimer = setInterval(() => {
+        goTo(current >= maxIndex() ? 0 : current + 1, false);
+      }, 7000);
+    }
+    function stopAuto() { clearInterval(autoTimer); }
+
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+    carousel.addEventListener('focusin',    stopAuto);
+    carousel.addEventListener('focusout',   startAuto);
+
+    /* Manual nav resets timer */
+    const _goTo = goTo;
+    btnPrev.addEventListener('click', () => { stopAuto(); startAuto(); });
+    btnNext.addEventListener('click', () => { stopAuto(); startAuto(); });
+
+    /* Init */
+    setCardWidths();
+    buildDots();
+    goTo(0);
+    startAuto();
+  })();
 
   // ── HAMBURGER MENU ──
   function toggleMenu() {
