@@ -6,24 +6,24 @@
 <title>Crescent Clinical Development</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #0a2540;
-    --accent: #00c8b4;
-    --accent2: #dff5f2;
-    --accent-glow: rgba(0,200,180,0.22);
-    --text: #0d1f38;
-    --text-muted: #3d5878;
-    --bg: #eef5f9;
+    --primary: #07192e;
+    --accent: #00897b;
+    --accent2: #d4f0ea;
+    --accent-glow: rgba(0,137,123,0.20);
+    --text: #0a1828;
+    --text-muted: #3d5a72;
+    --bg: #f0f6fc;
     --surface: #ffffff;
-    --surface2: #e4f0f6;
-    --border: rgba(10,37,64,0.13);
-    --shadow-sm: 0 2px 12px rgba(10,37,64,0.07);
-    --shadow-md: 0 6px 28px rgba(10,37,64,0.10);
-    --shadow-lg: 0 16px 56px rgba(10,37,64,0.13);
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    --font-body: 'DM Sans', sans-serif;
+    --surface2: #e4eef8;
+    --border: rgba(7,25,46,0.12);
+    --shadow-sm: 0 2px 12px rgba(7,25,46,0.07), 0 1px 3px rgba(7,25,46,0.04);
+    --shadow-md: 0 6px 24px rgba(7,25,46,0.10), 0 2px 8px rgba(7,25,46,0.05);
+    --shadow-lg: 0 18px 52px rgba(7,25,46,0.13), 0 4px 16px rgba(7,25,46,0.07);
+    --font-display: 'Merriweather', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --radius: 16px;
     --radius-sm: 8px;
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -51,6 +51,8 @@
 
   body {
     font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
     background: var(--bg);
     color: var(--text);
     overflow-x: hidden;
@@ -60,7 +62,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-feature-settings: 'ss01', 'cv11';
+    font-feature-settings: 'cv11' 1, 'ss01' 1, 'liga' 1;
+    font-optical-sizing: auto;
   }
 
   /* ── NAV ── */
@@ -86,6 +89,322 @@
     height: 3px;
     background: linear-gradient(90deg, transparent 0%, #007a6e 30%, #00c8b4 50%, #005f8a 70%, transparent 100%);
   }
+  /* ── LIGHT THEME SPECIFIC ENHANCEMENTS ── */
+
+  /* Nav: solidly white with a strong shadow so it reads as a separate layer from the hero */
+  [data-theme="light"] nav {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 28px rgba(7,25,46,0.13), 0 1px 0 rgba(7,25,46,0.07);
+  }
+  [data-theme="light"] nav.scrolled {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 40px rgba(7,25,46,0.16), 0 1px 0 rgba(7,25,46,0.09);
+  }
+  /* Thicker, more saturated accent line under the nav in light mode */
+  [data-theme="light"] nav::after {
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, #007a6e 20%, #00c8b4 45%, #009ebe 60%, #005f8a 80%, transparent 100%);
+    opacity: 1;
+  }
+
+  /* Hero: rich atmospheric blue-teal gradient — clearly distinct from the white nav above */
+  [data-theme="light"] .hero {
+    background:
+      radial-gradient(circle, rgba(0,200,180,0.10) 1px, transparent 1px),
+      radial-gradient(ellipse at 88% 12%, rgba(0,210,190,0.18) 0%, transparent 42%),
+      radial-gradient(ellipse at 12% 88%, rgba(0,110,190,0.18) 0%, transparent 42%),
+      linear-gradient(148deg, #071e38 0%, #0c2d4a 40%, #102f52 72%, #091e3a 100%);
+    background-size: 30px 30px, auto, auto, auto;
+  }
+  [data-theme="light"] .hero-grid {
+    background-image:
+      linear-gradient(rgba(0,200,180,0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,200,180,0.15) 1px, transparent 1px);
+    opacity: 0.9;
+  }
+
+  /* Alternating section backgrounds for visual rhythm */
+  [data-theme="light"] #about {
+    background: linear-gradient(180deg, #f0f6fc 0%, #fafcff 100%);
+  }
+  [data-theme="light"] .reg-section {
+    background:
+      radial-gradient(ellipse at 78% 35%, rgba(0,160,190,0.18) 0%, transparent 52%),
+      radial-gradient(ellipse at 12% 72%, rgba(0,100,155,0.13) 0%, transparent 48%),
+      linear-gradient(152deg, #cce5f5 0%, #d8eefb 28%, #e4f2fc 58%, #d3e9f8 100%);
+  }
+  [data-theme="light"] #documents {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f6fc 100%);
+  }
+  [data-theme="light"] .contact-section {
+    background: linear-gradient(180deg, #f0f6fc 0%, #f5f9fd 100%);
+  }
+  [data-theme="light"] .cta-section {
+    background: linear-gradient(180deg, #f5f9fe 0%, #f0f6fc 100%);
+  }
+
+  /* Cards: subtle gradient for depth and premium feel */
+  [data-theme="light"] .vm-card,
+  [data-theme="light"] .reg-card,
+  [data-theme="light"] .service-card {
+    background: linear-gradient(148deg, #ffffff 0%, #f7fbff 100%);
+  }
+  [data-theme="light"] .doc-card,
+  [data-theme="light"] .contact-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f5faff 100%);
+  }
+  [data-theme="light"] .contact-form-card {
+    background: linear-gradient(148deg, #ffffff 0%, #f8fcff 100%);
+  }
+
+  /* Marquee: white strip with strong text */
+  [data-theme="light"] .marquee-section {
+    background: var(--surface);
+    border-top-color: rgba(7,25,46,0.12);
+    border-bottom-color: rgba(7,25,46,0.10);
+    box-shadow: 0 2px 16px rgba(7,25,46,0.07);
+  }
+  [data-theme="light"] .marquee-item {
+    color: #1a3248;
+    opacity: 1;
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  /* Doc cards: clear bold text */
+  [data-theme="light"] .doc-card span {
+    color: #04111e;
+    font-weight: 600;
+    font-size: 13.5px;
+  }
+
+  /* Form labels: bold and visible */
+  [data-theme="light"] .form-group label {
+    color: #04111e;
+    opacity: 0.75;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  /* Form sub text */
+  [data-theme="light"] .contact-form-card h3 {
+    color: #04111e;
+    font-weight: 800;
+  }
+  [data-theme="light"] .contact-form-card .form-sub {
+    color: #2d4a62;
+    font-weight: 450;
+  }
+
+  /* Form fields: cleaner input appearance */
+  [data-theme="light"] .form-group input,
+  [data-theme="light"] .form-group select,
+  [data-theme="light"] .form-group textarea {
+    background: #f6fafd;
+    border-color: rgba(7,25,46,0.16);
+  }
+
+  /* Scroll-top button border in light mode */
+  [data-theme="light"] .theme-toggle {
+    background: var(--surface);
+    border-color: rgba(7,25,46,0.18);
+  }
+
+  /* Section tag: slightly stronger border in light mode */
+  [data-theme="light"] .section-tag {
+    background: rgba(0,137,123,0.10);
+    border-color: rgba(0,137,123,0.30);
+    color: #006b60;
+  }
+
+  /* ── LIGHT MODE TYPOGRAPHY OVERHAUL ── */
+
+  /* Hero title: maximum contrast deep navy */
+  [data-theme="light"] h1.hero-title {
+    color: #ffffff;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+  /* Hero accent line: bright teal on dark navy */
+  [data-theme="light"] h1.hero-title em {
+    color: #00c8b4;
+    font-style: normal;
+  }
+
+  /* Hero subtitle: soft white on dark bg */
+  [data-theme="light"] .hero-sub {
+    color: rgba(255,255,255,0.76);
+    font-weight: 450;
+    font-size: 17px;
+  }
+
+  /* Hero stats: white on dark navy */
+  [data-theme="light"] .stat-item .stat-num {
+    color: #ffffff;
+    font-weight: 800;
+  }
+  [data-theme="light"] .stat-item .stat-num span { color: #00c8b4; }
+  [data-theme="light"] .stat-item .stat-label {
+    color: rgba(255,255,255,0.60);
+    font-weight: 500;
+  }
+
+  /* Hero badge: teal glass on dark bg */
+  [data-theme="light"] .hero-badge {
+    background: rgba(0,200,180,0.14);
+    border-color: rgba(0,200,180,0.38);
+    color: #00d4c0;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Outline button on dark navy hero */
+  [data-theme="light"] .btn-outline {
+    border-color: rgba(255,255,255,0.42);
+    color: rgba(255,255,255,0.90);
+    font-weight: 600;
+  }
+  [data-theme="light"] .btn-outline:hover {
+    border-color: rgba(255,255,255,0.80);
+    color: #ffffff;
+    background: rgba(255,255,255,0.10);
+  }
+
+  /* Hero stats divider */
+  [data-theme="light"] .hero-stats {
+    border-top-color: rgba(255,255,255,0.14);
+  }
+
+  /* Section tags: bold and punchy */
+  [data-theme="light"] .section-tag {
+    background: rgba(0,137,123,0.12);
+    border-color: rgba(0,137,123,0.32);
+    color: #004840;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+  }
+
+  /* Section titles: maximum weight and contrast */
+  [data-theme="light"] h2.section-title {
+    color: #04111e;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* Section subtitles: readable and weighty */
+  [data-theme="light"] .section-sub {
+    color: #243c52;
+    font-weight: 450;
+    font-size: 16.5px;
+  }
+
+  /* Card headings: bold serif, authority + elegance */
+  [data-theme="light"] .vm-card h3,
+  [data-theme="light"] .reg-card h3,
+  [data-theme="light"] .service-card h3 {
+    color: #04111e;
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  /* Card body text: legible and substantial */
+  [data-theme="light"] .vm-card p,
+  [data-theme="light"] .reg-card p,
+  [data-theme="light"] .service-card p {
+    color: #2d4a62;
+    font-weight: 420;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* Reg card abbreviation (EU MDR etc.) */
+  [data-theme="light"] .reg-card h3 {
+    color: #004840;
+    font-size: 20px;
+    font-weight: 800;
+  }
+  [data-theme="light"] .reg-card .reg-full {
+    color: #2d4a62;
+    font-weight: 600;
+  }
+
+  /* Nav links: bolder for light mode */
+  [data-theme="light"] .nav-links a {
+    opacity: 1;
+    color: #1a3248;
+    font-weight: 600;
+  }
+  [data-theme="light"] .nav-links a:hover { color: var(--accent); }
+
+  /* Contact info text */
+  [data-theme="light"] .ci-text {
+    font-weight: 700;
+    color: #04111e;
+    font-size: 14.5px;
+  }
+  [data-theme="light"] .ci-sub { color: #3a5670; font-weight: 500; }
+
+  /* Why-section trust badge in light mode (on the dark section) — unchanged, stays on dark bg */
+
+  /* Why-section card glass tint on new navy-teal bg */
+  [data-theme="light"] .why-card {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.12);
+  }
+  [data-theme="light"] .why-card:hover {
+    background: rgba(0,200,180,0.10);
+    border-color: rgba(0,200,180,0.42);
+  }
+
+  /* Process step glass on new navy-teal bg */
+  [data-theme="light"] .process-step {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.12);
+  }
+  [data-theme="light"] .process-step:hover {
+    background: rgba(0,200,180,0.10);
+    border-color: rgba(0,200,180,0.35);
+  }
+
+  /* ── DARK SECTIONS: replace near-black with rich branded navy-teal ── */
+
+  /* Process: near-black (#020c16) → deep navy-teal with more brand character */
+  [data-theme="light"] .process-section {
+    background:
+      radial-gradient(circle, rgba(0,200,180,0.10) 1px, transparent 1px),
+      radial-gradient(ellipse at 88% 12%, rgba(0,210,190,0.18) 0%, transparent 42%),
+      radial-gradient(ellipse at 12% 88%, rgba(0,110,190,0.18) 0%, transparent 42%),
+      linear-gradient(148deg, #071e38 0%, #0c2d4a 40%, #102f52 72%, #091e3a 100%);
+    background-size: 30px 30px, auto, auto, auto;
+  }
+
+  /* Why-section: flat #07192e → layered teal-navy gradient */
+  [data-theme="light"] .why-section {
+    background: linear-gradient(145deg, #082035 0%, #0b2a44 55%, #0e3050 100%);
+  }
+
+  /* Restore white text for dark sections — overrides the global light-theme title/sub rules */
+  [data-theme="light"] .process-section h2.section-title,
+  [data-theme="light"] .why-section h2.section-title { color: #ffffff; font-weight: 700; }
+  [data-theme="light"] .process-section .section-sub,
+  [data-theme="light"] .why-section .section-sub { color: rgba(255,255,255,0.70); font-weight: 400; font-size: 16px; }
+  [data-theme="light"] .process-section .section-tag,
+  [data-theme="light"] .why-section .section-tag {
+    background: rgba(0,200,180,0.15);
+    border-color: rgba(0,200,180,0.38);
+    color: #00d4c0;
+  }
+
+  /* CTA box: navy→teal gradient with more brand character */
+  [data-theme="light"] .cta-box {
+    background: linear-gradient(135deg, #082035 0%, #0b2d4a 45%, #0e3a68 100%);
+  }
+
+  /* Footer: near-black (#020d18) → deep branded navy */
+  [data-theme="light"] footer {
+    background: linear-gradient(160deg, #071828 0%, #0b2438 55%, #0e2e4c 100%);
+  }
+
   [data-theme="dark"] nav { border-bottom: none; }
   [data-theme="dark"] nav {
     background: rgba(6,15,26,0.85);
@@ -128,11 +447,11 @@
     list-style: none;
   }
   .nav-links a {
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 500;
     color: var(--text);
     text-decoration: none;
-    letter-spacing: 0;
+    letter-spacing: 0.01em;
     transition: color 0.2s;
     opacity: 0.72;
   }
@@ -162,9 +481,9 @@
     color: #ffffff;
     border: none;
     border-radius: 40px;
-    font-family: var(--font-display);
-    font-size: 14px;
-    font-weight: 800;
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    font-weight: 700;
     letter-spacing: 0.04em;
     cursor: pointer;
     text-decoration: none;
@@ -239,24 +558,28 @@
   }
   h1.hero-title {
     font-family: var(--font-display);
-    font-size: clamp(42px, 5.6vw, 72px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    font-size: clamp(26px, 3.4vw, 46px);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    line-height: 1.18;
     color: var(--text);
+    white-space: nowrap;
     margin-bottom: 24px;
     animation: fadeUp 0.6s 0.1s ease both;
   }
   h1.hero-title em {
-    font-style: italic;
+    font-style: normal;
+    font-weight: 900;
     color: var(--accent);
     display: block;
-    font-size: 1.08em;
-    margin-top: 6px;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    margin-top: 8px;
   }
   .hero-sub {
-    font-size: 16px;
-    line-height: 1.75;
+    font-size: 16.5px;
+    line-height: 1.78;
     color: var(--text-muted);
     max-width: 540px;
     margin-bottom: 40px;
@@ -275,9 +598,9 @@
     color: #ffffff;
     border: none;
     border-radius: 40px;
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 800;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 700;
     letter-spacing: 0.04em;
     cursor: pointer;
     text-decoration: none;
@@ -294,9 +617,9 @@
     color: var(--text);
     border: 2px solid rgba(0,200,180,0.55);
     border-radius: 40px;
-    font-family: var(--font-display);
-    font-size: 16px;
-    font-weight: 800;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
     letter-spacing: 0.02em;
     cursor: pointer;
     text-decoration: none;
@@ -340,6 +663,15 @@
     from { opacity: 0; transform: translateY(-50%) translateX(40px); }
     to { opacity: 1; transform: translateY(-50%) translateX(0); }
   }
+  /* SVG orbital — dark theme defaults */
+  .orb-ring         { stroke: rgba(0,200,180,0.15); fill: none; }
+  .orb-ring-dash    { stroke: rgba(0,200,180,0.22); fill: none; }
+  .orb-center       { fill: rgba(0,200,180,0.15); stroke: rgba(0,200,180,0.42); }
+  .orb-crescent     { fill: rgba(0,200,180,0.62); }
+  .orb-node         { fill: rgba(0,200,180,0.82); stroke: rgba(0,200,180,1); }
+  .orb-node-text    { fill: white; }
+  .orb-line         { stroke: rgba(0,200,180,0.28); fill: none; }
+  .orb-dot          { fill: rgba(0,200,180,0.42); }
 
   /* ── MARQUEE ── */
   .marquee-section {
@@ -357,10 +689,10 @@
     width: max-content;
   }
   .marquee-item {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--text);
     opacity: 0.55;
@@ -389,15 +721,16 @@
   }
   h2.section-title {
     font-family: var(--font-display);
-    font-size: clamp(32px, 4vw, 54px);
+    font-size: clamp(26px, 3.2vw, 44px);
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
     color: var(--text);
     margin-bottom: 16px;
   }
   .section-sub {
-    font-size: 15.5px;
-    line-height: 1.75;
+    font-size: 16px;
+    line-height: 1.78;
     color: var(--text-muted);
     max-width: 1200px;
     margin-bottom: 60px;
@@ -470,14 +803,15 @@
   }
   .vm-card h3 {
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 700;
+    letter-spacing: -0.015em;
     color: var(--text);
     margin-bottom: 0;
   }
   .vm-card p {
-    font-size: 15px;
-    line-height: 1.75;
+    font-size: 15.5px;
+    line-height: 1.78;
     color: var(--text-muted);
     font-weight: 400;
   }
@@ -540,11 +874,11 @@
   .reg-card:hover h3 { color: var(--accent); }
   .reg-card h3 {
     font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 800;
+    font-size: 17px;
+    font-weight: 700;
     color: var(--accent);
     margin-bottom: 8px;
-    letter-spacing: 0.04em;
+    letter-spacing: -0.015em;
   }
   .reg-card .reg-full {
     font-size: 11.5px;
@@ -554,7 +888,7 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  .reg-card p { font-size: 14px; line-height: 1.7; color: var(--text-muted); font-weight: 400; }
+  .reg-card p { font-size: 14.5px; line-height: 1.72; color: var(--text-muted); font-weight: 400; }
   .reg-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
   .reg-tag {
     font-size: 10px;
@@ -632,11 +966,12 @@
     font-family: var(--font-display);
     font-size: 17px;
     font-weight: 700;
+    letter-spacing: -0.015em;
     color: var(--text);
     margin-bottom: 10px;
     padding-right: 40px;
   }
-  .service-card p { font-size: 14px; line-height: 1.65; color: var(--text-muted); }
+  .service-card p { font-size: 14.5px; line-height: 1.7; color: var(--text-muted); }
 
   /* ── PROCESS ── */
   .process-section {
@@ -756,6 +1091,7 @@
     font-family: var(--font-display);
     font-size: 17px;
     font-weight: 700;
+    letter-spacing: -0.015em;
     color: #fff;
     margin-bottom: 8px;
   }
@@ -803,10 +1139,10 @@
   }
   .doc-card:hover .doc-icon { transform: scale(1.2); }
   .doc-card span {
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 500;
     color: var(--text);
-    line-height: 1.35;
+    line-height: 1.38;
   }
 
   /* ── WHY US ── */
@@ -868,8 +1204,9 @@
   .why-card:hover .why-icon { transform: scale(1.2) rotate(-5deg); }
   .why-card h3 {
     font-family: var(--font-display);
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
+    letter-spacing: -0.015em;
     color: #fff;
     margin-bottom: 0;
   }
@@ -915,9 +1252,9 @@
     color: #ffffff;
     border: none;
     border-radius: 40px;
-    font-family: var(--font-display);
-    font-size: 15px;
-    font-weight: 800;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
     letter-spacing: 0.04em;
     cursor: pointer;
     text-decoration: none;
@@ -932,9 +1269,9 @@
     color: #fff;
     border: 1.5px solid rgba(255,255,255,0.45);
     border-radius: 40px;
-    font-family: var(--font-display);
-    font-size: 15px;
-    font-weight: 800;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
     letter-spacing: 0.02em;
     cursor: pointer;
     text-decoration: none;
@@ -1038,7 +1375,7 @@
   }
   .contact-form-card h3 {
     font-family: var(--font-display);
-    font-size: 22px; font-weight: 700; color: var(--text);
+    font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text);
     margin-bottom: 6px;
   }
   .contact-form-card .form-sub {
@@ -1047,8 +1384,9 @@
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
   .form-group label {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--text-muted);
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--text);
+    opacity: 0.65;
   }
   .form-group input,
   .form-group select,
@@ -1128,7 +1466,7 @@
     background: linear-gradient(135deg, #007a6e 0%, #005f8a 100%);
     color: #ffffff;
     border: none; border-radius: 40px;
-    font-family: var(--font-display); font-size: 14px; font-weight: 800;
+    font-family: var(--font-body); font-size: 14px; font-weight: 700;
     letter-spacing: 0.05em; cursor: pointer;
     display: inline-flex; align-items: center; gap: 7px;
     transition: transform 0.2s var(--ease-out), box-shadow 0.2s ease, filter 0.2s ease;
@@ -1218,10 +1556,10 @@
   }
   .footer-brand p { font-size: 13.5px; line-height: 1.75; margin-top: 18px; max-width: 290px; color: rgba(255,255,255,0.50); }
   .footer-col h4 {
-    font-family: var(--font-display);
+    font-family: var(--font-body);
     font-size: 10.5px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 20px;
@@ -1504,7 +1842,8 @@
     padding: 14px 0;
     font-size: 22px;
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 800;
+    letter-spacing: -0.02em;
     color: var(--text);
     text-decoration: none;
     border-bottom: 1px solid var(--border);
@@ -1541,7 +1880,7 @@
     .logo-img { height: 52px; }
     section { padding: 72px 5%; }
     .hero { padding: 100px 5% 56px; }
-    h1.hero-title { font-size: clamp(36px, 5.5vw, 56px); }
+    h1.hero-title { font-size: clamp(24px, 3.8vw, 44px); letter-spacing: 0.04em; }
     h2.section-title { font-size: clamp(26px, 4vw, 40px); }
     .vm-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
     .reg-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -1583,8 +1922,8 @@
 
     /* Hero */
     .hero { padding: 88px 5% 44px; min-height: auto; }
-    h1.hero-title { font-size: clamp(30px, 8.5vw, 46px); letter-spacing: -0.01em; }
-    h1.hero-title em { font-size: 1em; }
+    h1.hero-title { font-size: clamp(20px, 5.5vw, 34px); letter-spacing: 0.03em; white-space: normal; }
+    h1.hero-title em { font-size: 1em; white-space: normal; }
     .hero-sub { font-size: 14px; line-height: 1.65; margin-bottom: 28px; }
     .hero-badge { font-size: 10px; padding: 5px 12px; margin-bottom: 20px; }
     .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
@@ -1709,7 +2048,7 @@
   @media (max-width: 420px) {
     nav { height: 60px; }
     .logo-img { height: 36px; }
-    h1.hero-title { font-size: clamp(26px, 9vw, 38px); }
+    h1.hero-title { font-size: clamp(18px, 6.5vw, 28px); letter-spacing: 0.02em; white-space: normal; }
     h2.section-title { font-size: clamp(22px, 7.5vw, 30px); }
     .docs-grid { grid-template-columns: 1fr; }
     .vm-card, .reg-card, .service-card, .why-card { padding: 18px 14px; }
@@ -1793,30 +2132,30 @@
 
   <!-- Hero SVG Illustration -->
   <div class="hero-visual">
-    <svg width="380" height="380" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="190" cy="190" r="160" stroke="rgba(0,200,180,0.12)" stroke-width="1"/>
-      <circle cx="190" cy="190" r="120" stroke="rgba(0,200,180,0.18)" stroke-width="1" stroke-dasharray="6 4"/>
-      <circle cx="190" cy="190" r="80" stroke="rgba(0,200,180,0.25)" stroke-width="1"/>
+    <svg class="orbital-svg" width="380" height="380" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle class="orb-ring" cx="190" cy="190" r="160" stroke-width="1"/>
+      <circle class="orb-ring-dash" cx="190" cy="190" r="120" stroke-width="1" stroke-dasharray="6 4"/>
+      <circle class="orb-ring" cx="190" cy="190" r="80" stroke-width="1"/>
       <!-- Central crescent -->
-      <circle cx="190" cy="190" r="46" fill="rgba(0,200,180,0.15)" stroke="rgba(0,200,180,0.4)" stroke-width="1.5"/>
-      <path d="M190 144 A46 46 0 0 1 190 236 A30 30 0 0 0 190 144Z" fill="rgba(0,200,180,0.6)"/>
+      <circle class="orb-center" cx="190" cy="190" r="46" stroke-width="1.5"/>
+      <path class="orb-crescent" d="M190 144 A46 46 0 0 1 190 236 A30 30 0 0 0 190 144Z"/>
       <!-- Orbiting nodes -->
-      <circle cx="190" cy="30" r="10" fill="rgba(0,200,180,0.8)" stroke="rgba(0,200,180,1)" stroke-width="1.5"/>
-      <text x="190" y="34" text-anchor="middle" fill="white" font-size="9" font-family="sans-serif" font-weight="bold">FDA</text>
-      <circle cx="330" cy="245" r="10" fill="rgba(0,200,180,0.8)"/>
-      <text x="330" y="249" text-anchor="middle" fill="white" font-size="8" font-family="sans-serif" font-weight="bold">MDR</text>
-      <circle cx="50" cy="245" r="10" fill="rgba(0,200,180,0.8)"/>
-      <text x="50" y="249" text-anchor="middle" fill="white" font-size="7" font-family="sans-serif" font-weight="bold">CDSCO</text>
+      <circle class="orb-node" cx="190" cy="30" r="10" stroke-width="1.5"/>
+      <text class="orb-node-text" x="190" y="34" text-anchor="middle" font-size="9" font-family="sans-serif" font-weight="bold">FDA</text>
+      <circle class="orb-node" cx="330" cy="245" r="10"/>
+      <text class="orb-node-text" x="330" y="249" text-anchor="middle" font-size="8" font-family="sans-serif" font-weight="bold">MDR</text>
+      <circle class="orb-node" cx="50" cy="245" r="10"/>
+      <text class="orb-node-text" x="50" y="249" text-anchor="middle" font-size="7" font-family="sans-serif" font-weight="bold">CDSCO</text>
       <!-- Connecting lines -->
-      <line x1="190" y1="40" x2="190" y2="110" stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-      <line x1="321" y1="240" x2="265" y2="216" stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
-      <line x1="59" y1="240" x2="115" y2="216" stroke="rgba(0,200,180,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+      <line class="orb-line" x1="190" y1="40" x2="190" y2="110" stroke-width="1" stroke-dasharray="4 3"/>
+      <line class="orb-line" x1="321" y1="240" x2="265" y2="216" stroke-width="1" stroke-dasharray="4 3"/>
+      <line class="orb-line" x1="59" y1="240" x2="115" y2="216" stroke-width="1" stroke-dasharray="4 3"/>
       <!-- Outer ring dots -->
-      <circle cx="305" cy="80" r="5" fill="rgba(0,200,180,0.4)"/>
-      <circle cx="75" cy="80" r="5" fill="rgba(0,200,180,0.4)"/>
-      <circle cx="350" cy="190" r="5" fill="rgba(0,200,180,0.4)"/>
-      <circle cx="30" cy="190" r="5" fill="rgba(0,200,180,0.4)"/>
-      <circle cx="190" cy="350" r="5" fill="rgba(0,200,180,0.4)"/>
+      <circle class="orb-dot" cx="305" cy="80" r="5"/>
+      <circle class="orb-dot" cx="75" cy="80" r="5"/>
+      <circle class="orb-dot" cx="350" cy="190" r="5"/>
+      <circle class="orb-dot" cx="30" cy="190" r="5"/>
+      <circle class="orb-dot" cx="190" cy="350" r="5"/>
     </svg>
   </div>
 </section>
