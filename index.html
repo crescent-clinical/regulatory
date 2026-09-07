@@ -66,6 +66,18 @@
     font-optical-sizing: auto;
   }
 
+  /* ── SCROLL PROGRESS BAR: new component — teal-to-blue gradient fill tracking scroll position ── */
+  #scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, #00897b 0%, #00b4a8 30%, #005f8a 68%, #0056b3 100%);
+    z-index: 300;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(0,150,140,0.5);
+  }
+
   /* ── NAV ── */
   nav {
     position: fixed;
@@ -107,34 +119,39 @@
     opacity: 1;
   }
 
-  /* Hero: rich atmospheric blue-teal gradient — clearly distinct from the white nav above */
+  /* Hero: crisp white/porcelain base with a bolder, more vivid blue atmosphere (teal as supporting accent) */
   [data-theme="light"] .hero {
     background:
-      radial-gradient(circle, rgba(0,200,180,0.10) 1px, transparent 1px),
-      radial-gradient(ellipse at 88% 12%, rgba(0,210,190,0.18) 0%, transparent 42%),
-      radial-gradient(ellipse at 12% 88%, rgba(0,110,190,0.18) 0%, transparent 42%),
-      linear-gradient(148deg, #071e38 0%, #0c2d4a 40%, #102f52 72%, #091e3a 100%);
-    background-size: 30px 30px, auto, auto, auto;
+      radial-gradient(circle, rgba(0,86,179,0.07) 1px, transparent 1px),
+      radial-gradient(ellipse at 90% 4%, rgba(0,86,179,0.16) 0%, transparent 46%),
+      radial-gradient(ellipse at 4% 98%, rgba(0,86,179,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 46% 40%, rgba(0,180,165,0.07) 0%, transparent 55%),
+      linear-gradient(158deg, #fcfdff 0%, #f4f9fd 38%, #eef6fc 68%, #f6fafd 100%);
+    background-size: 28px 28px, auto, auto, auto, auto;
   }
   [data-theme="light"] .hero-grid {
     background-image:
-      linear-gradient(rgba(0,200,180,0.15) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,200,180,0.15) 1px, transparent 1px);
-    opacity: 0.9;
+      linear-gradient(rgba(0,90,220,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,90,220,0.06) 1px, transparent 1px);
+    opacity: 0.7;
   }
+  [data-theme="light"] .hero-bg .orb { opacity: 0.20; }
+  [data-theme="light"] .orb1 { background: #0056b3; }
+  [data-theme="light"] .orb2 { background: #00897b; }
+  [data-theme="light"] .orb3 { background: #0056b3; }
 
   /* Alternating section backgrounds for visual rhythm */
   [data-theme="light"] #about {
     background: linear-gradient(180deg, #f0f6fc 0%, #fafcff 100%);
   }
   [data-theme="light"] .reg-section {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f6fc 100%);
+  }
+  [data-theme="light"] #documents {
     background:
       radial-gradient(ellipse at 78% 35%, rgba(0,160,190,0.18) 0%, transparent 52%),
       radial-gradient(ellipse at 12% 72%, rgba(0,100,155,0.13) 0%, transparent 48%),
       linear-gradient(152deg, #cce5f5 0%, #d8eefb 28%, #e4f2fc 58%, #d3e9f8 100%);
-  }
-  [data-theme="light"] #documents {
-    background: linear-gradient(180deg, #ffffff 0%, #f0f6fc 100%);
   }
   [data-theme="light"] .contact-section {
     background: linear-gradient(180deg, #f0f6fc 0%, #f5f9fd 100%);
@@ -202,6 +219,116 @@
     border-color: rgba(7,25,46,0.16);
   }
 
+  /* Icon badges: stronger fill + crisper border + lift shadow so icons read clearly against the white surface */
+  [data-theme="light"] .vm-icon,
+  [data-theme="light"] .service-icon,
+  [data-theme="light"] .tr-icon-circle,
+  [data-theme="light"] .stat-icon,
+  [data-theme="light"] .ci-icon {
+    background: linear-gradient(150deg, rgba(0,86,179,0.20) 0%, rgba(0,137,123,0.18) 100%);
+    border-color: rgba(0,86,179,0.50);
+    border-width: 1.5px;
+    box-shadow: 0 2px 10px rgba(0,86,179,0.16), 0 1px 2px rgba(7,25,46,0.08);
+    filter: saturate(1.15);
+  }
+  [data-theme="light"] .vm-card:hover .vm-icon,
+  [data-theme="light"] .service-card:hover .service-icon,
+  [data-theme="light"] .tr-stat:hover .tr-icon-circle {
+    background: linear-gradient(150deg, rgba(0,86,179,0.34) 0%, rgba(0,137,123,0.24) 100%);
+    border-color: rgba(0,86,179,0.60);
+    box-shadow: 0 6px 20px rgba(0,86,179,0.28);
+  }
+
+  /* Hero orbital diagram: center circle is barely visible on the light hero background — give it a touch more presence */
+  [data-theme="light"] .orb-center {
+    fill: rgba(0,130,150,0.28);
+    stroke: rgba(0,110,130,0.55);
+  }
+  /* Hero orbital diagram: rings/lines fade into the light hero background — darken and strengthen them like the dark theme */
+  [data-theme="light"] .orb-ring {
+    stroke: rgba(0,110,130,0.38);
+  }
+  [data-theme="light"] .orb-ring-dash {
+    stroke: rgba(0,110,130,0.45);
+  }
+  [data-theme="light"] .orb-line {
+    stroke: rgba(0,110,130,0.55);
+  }
+  [data-theme="light"] .orb-dot {
+    fill: rgba(0,110,130,0.60);
+  }
+
+  /* Tag pills: vivid blue and teal alternating, blue more saturated for extra pop */
+  [data-theme="light"] .reg-tag:nth-child(even),
+  [data-theme="light"] .tr-tag:nth-child(even),
+  [data-theme="light"] .rs-audience .stat-tag:nth-child(even) {
+    background: rgba(0,86,179,0.11);
+    border-color: rgba(0,86,179,0.32);
+    color: #045f8f;
+  }
+  [data-theme="light"] .reg-tag:nth-child(odd),
+  [data-theme="light"] .tr-tag:nth-child(odd) {
+    color: #00685f;
+  }
+
+  /* Marquee strip: vivid blue-teal wash, blue leading */
+  [data-theme="light"] .marquee-section {
+    background: linear-gradient(90deg, rgba(0,86,179,0.06) 0%, rgba(0,137,123,0.05) 100%), var(--surface);
+  }
+
+  /* Buttons & scroll-top: vivid teal-to-blue gradient, blue leading and more saturated */
+  [data-theme="light"] .btn-primary,
+  [data-theme="light"] .btn-nav,
+  [data-theme="light"] .btn-white,
+  [data-theme="light"] #scroll-top {
+    background: linear-gradient(125deg, #00897b 0%, #005f8a 65%, #0056b3 100%);
+    box-shadow: 0 4px 18px rgba(0,86,179,0.32);
+  }
+  [data-theme="light"] .btn-primary:hover,
+  [data-theme="light"] .btn-nav:hover,
+  [data-theme="light"] .btn-white:hover,
+  [data-theme="light"] #scroll-top:hover {
+    box-shadow: 0 12px 32px rgba(0,86,179,0.42);
+  }
+
+  /* Nav underline + bottom accent line: vivid blue leading */
+  [data-theme="light"] .nav-links a::after {
+    background: linear-gradient(90deg, var(--accent), #0056b3);
+  }
+  [data-theme="light"] nav::after {
+    background: linear-gradient(90deg, transparent 0%, #00897b 18%, #00c8b4 38%, #005f8a 60%, #0056b3 82%, transparent 100%);
+  }
+
+  /* Card accent bars (top/left) across vision, docs, regs, stats: vivid blue leading */
+  [data-theme="light"] .vm-card::before,
+  [data-theme="light"] .doc-card::before,
+  [data-theme="light"] .reg-card::before,
+  [data-theme="light"] .contact-card::before {
+    background: linear-gradient(90deg, #00897b, #0056b3);
+  }
+  [data-theme="light"] .step-num {
+    background: linear-gradient(150deg, rgba(0,86,179,0.16), rgba(0,137,123,0.10));
+    border-color: rgba(0,86,179,0.40);
+  }
+
+  /* Hover glows on primary cards: vivid blue instead of teal-only, for a more attention-grabbing lift */
+  [data-theme="light"] .vm-card:hover,
+  [data-theme="light"] .service-card:hover {
+    border-color: rgba(0,86,179,0.38);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,86,179,0.20), 0 0 40px rgba(0,86,179,0.12);
+  }
+  [data-theme="light"] .reg-card:hover {
+    border-color: rgba(0,86,179,0.38);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,86,179,0.18), 0 0 40px rgba(0,86,179,0.12);
+  }
+  [data-theme="light"] .doc-card:hover {
+    border-color: #0056b3;
+    background: linear-gradient(135deg, rgba(0,86,179,0.08), rgba(0,137,123,0.06));
+  }
+  [data-theme="light"] .doc-card::before {
+    background: linear-gradient(180deg, #0056b3, #00897b);
+  }
+
   /* Scroll-top button border in light mode */
   [data-theme="light"] .theme-toggle {
     background: var(--surface);
@@ -217,59 +344,63 @@
 
   /* ── LIGHT MODE TYPOGRAPHY OVERHAUL ── */
 
-  /* Hero title: maximum contrast deep navy */
+  /* Hero title: deep navy ink on the light hero, crisp and authoritative */
   [data-theme="light"] h1.hero-title {
-    color: #ffffff;
+    color: #072235;
     font-weight: 900;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
   }
-  /* Hero accent line: bright teal on dark navy */
+  /* Hero accent line: teal opening into a bold, vivid blue — blue now leads the brand gradient */
   [data-theme="light"] h1.hero-title em {
-    color: #00c8b4;
+    background: linear-gradient(100deg, #00897b 0%, #009ebe 35%, #0056b3 75%, #005f8a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-style: normal;
   }
 
-  /* Hero subtitle: soft white on dark bg */
+  /* Hero subtitle: legible slate on light bg */
   [data-theme="light"] .hero-sub {
-    color: rgba(255,255,255,0.76);
+    color: #3d5568;
     font-weight: 450;
   }
 
-  /* Hero stats: white on dark navy */
-  [data-theme="light"] .stat-item .stat-num {
-    color: #ffffff;
+  /* Hero stats: dark navy on light bg (hero only — not the standalone offer-stats block) */
+  [data-theme="light"] .hero-content .stat-item .stat-num {
+    color: #072235;
     font-weight: 800;
   }
-  [data-theme="light"] .stat-item .stat-num span { color: #00c8b4; }
-  [data-theme="light"] .stat-item .stat-label {
-    color: rgba(255,255,255,0.60);
+  [data-theme="light"] .hero-content .stat-item .stat-num span { color: #00897b; }
+  [data-theme="light"] .hero-content .stat-item .stat-label {
+    color: #5b7688;
     font-weight: 500;
   }
 
-  /* Hero badge: teal glass on dark bg */
+  /* Hero badge: vivid blue-teal glass on light bg, blue leading */
   [data-theme="light"] .hero-badge {
-    background: rgba(0,200,180,0.14);
-    border-color: rgba(0,200,180,0.38);
-    color: #00d4c0;
+    background: linear-gradient(120deg, rgba(0,86,179,0.14), rgba(0,137,123,0.10));
+    border-color: rgba(0,86,179,0.35);
+    color: #045f8f;
     font-weight: 700;
     backdrop-filter: blur(10px);
   }
+  [data-theme="light"] .hero-badge::before { background: #0056b3; }
 
-  /* Outline button on dark navy hero */
+  /* Outline button on light hero */
   [data-theme="light"] .btn-outline {
-    border-color: rgba(255,255,255,0.42);
-    color: rgba(255,255,255,0.90);
+    border-color: rgba(7,34,53,0.22);
+    color: #0d2a3d;
     font-weight: 600;
   }
   [data-theme="light"] .btn-outline:hover {
-    border-color: rgba(255,255,255,0.80);
-    color: #ffffff;
-    background: rgba(255,255,255,0.10);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,137,123,0.06);
   }
 
-  /* Hero stats divider */
-  [data-theme="light"] .hero-stats {
-    border-top-color: rgba(255,255,255,0.14);
+  /* Hero stats divider (hero only) */
+  [data-theme="light"] .hero-content .hero-stats {
+    border-top-color: rgba(7,34,53,0.10);
   }
 
   /* Section tags: bold and punchy */
@@ -336,65 +467,73 @@
   }
   [data-theme="light"] .ci-sub { color: #3a5670; font-weight: 500; }
 
-  /* Why-section trust badge in light mode (on the dark section) — unchanged, stays on dark bg */
-
-  /* Why-section card glass tint on new navy-teal bg */
+  /* Why-section card — clean white surface (why-section is currently unused/hidden, kept consistent for future use) */
   [data-theme="light"] .why-card {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.12);
+    background: linear-gradient(148deg, #ffffff 0%, #f5fbfa 100%);
+    border-color: var(--border);
   }
   [data-theme="light"] .why-card:hover {
-    background: rgba(0,200,180,0.10);
-    border-color: rgba(0,200,180,0.42);
+    background: linear-gradient(148deg, #ffffff 0%, var(--accent2) 100%);
+    border-color: rgba(0,137,123,0.35);
   }
 
-  /* Process step glass on new navy-teal bg */
+  /* Process step: elevated white card on the now-bright process section */
   [data-theme="light"] .process-step {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.12);
+    background: linear-gradient(150deg, #ffffff 0%, #f6fbfb 100%);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: none;
   }
   [data-theme="light"] .process-step:hover {
-    background: rgba(0,200,180,0.10);
-    border-color: rgba(0,200,180,0.35);
+    background: #ffffff;
+    border-color: rgba(0,137,123,0.38);
+    box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,137,123,0.12);
+  }
+  [data-theme="light"] .step-content h3 { color: #04111e; }
+  [data-theme="light"] .step-content p { color: #40596d; }
+  [data-theme="light"] .step-num {
+    background: linear-gradient(150deg, rgba(0,137,123,0.12), rgba(0,110,190,0.10));
+    border-color: rgba(0,137,123,0.45);
+  }
+  [data-theme="light"] .process-step:hover .step-num {
+    box-shadow: 0 0 0 6px rgba(0,137,123,0.10);
   }
 
-  /* ── DARK SECTIONS: replace near-black with rich branded navy-teal ── */
-
-  /* Process: near-black (#020c16) → deep navy-teal with more brand character */
+  /* ── PROCESS SECTION: bright, elegant, enterprise-grade daylight treatment with vivid blue glow ── */
   [data-theme="light"] .process-section {
     background:
-      radial-gradient(circle, rgba(0,200,180,0.10) 1px, transparent 1px),
-      radial-gradient(ellipse at 88% 12%, rgba(0,210,190,0.18) 0%, transparent 42%),
-      radial-gradient(ellipse at 12% 88%, rgba(0,110,190,0.18) 0%, transparent 42%),
-      linear-gradient(148deg, #071e38 0%, #0c2d4a 40%, #102f52 72%, #091e3a 100%);
-    background-size: 30px 30px, auto, auto, auto;
+      radial-gradient(ellipse at 90% 8%, rgba(0,86,179,0.10) 0%, transparent 48%),
+      radial-gradient(ellipse at 6% 92%, rgba(0,86,179,0.08) 0%, transparent 48%),
+      radial-gradient(ellipse at 50% 50%, rgba(0,137,123,0.05) 0%, transparent 60%),
+      linear-gradient(180deg, #f7fbfd 0%, #edf5fc 100%);
   }
 
-  /* Why-section: flat #07192e → layered teal-navy gradient */
+  /* Why-section (currently hidden, kept in the same light system for consistency) */
   [data-theme="light"] .why-section {
-    background: linear-gradient(145deg, #082035 0%, #0b2a44 55%, #0e3050 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #f0f6fc 100%);
   }
 
-  /* Restore white text for dark sections — overrides the global light-theme title/sub rules */
+  /* Section headings inside these sections stay on-brand dark ink, same as the rest of the page */
   [data-theme="light"] .process-section h2.section-title,
-  [data-theme="light"] .why-section h2.section-title { color: #ffffff; font-weight: 700; }
+  [data-theme="light"] .why-section h2.section-title { color: #04111e; font-weight: 700; }
   [data-theme="light"] .process-section .section-sub,
-  [data-theme="light"] .why-section .section-sub { color: rgba(255,255,255,0.70); font-weight: 400; }
+  [data-theme="light"] .why-section .section-sub { color: #2d4a62; font-weight: 450; }
   [data-theme="light"] .process-section .section-tag,
   [data-theme="light"] .why-section .section-tag {
-    background: rgba(0,200,180,0.15);
-    border-color: rgba(0,200,180,0.38);
-    color: #00d4c0;
+    background: rgba(0,137,123,0.12);
+    border-color: rgba(0,137,123,0.32);
+    color: #004840;
   }
 
-  /* CTA box: navy→teal gradient with more brand character */
+  /* CTA box: vivid teal-to-blue brand gradient, blue leading for a bolder pop */
   [data-theme="light"] .cta-box {
-    background: linear-gradient(135deg, #082035 0%, #0b2d4a 45%, #0e3a68 100%);
+    background: linear-gradient(120deg, #00695c 0%, #005f8a 55%, #0056b3 100%);
   }
 
-  /* Footer: near-black (#020d18) → deep branded navy */
+  /* Footer: refined deep teal-navy, brand-tied rather than near-black */
   [data-theme="light"] footer {
-    background: linear-gradient(160deg, #071828 0%, #0b2438 55%, #0e2e4c 100%);
+    background: linear-gradient(165deg, #06212f 0%, #0a3040 55%, #0d3a4a 100%);
+    border-top: 1px solid rgba(0,200,180,0.25);
   }
 
   [data-theme="dark"] nav { border-bottom: none; }
@@ -427,7 +566,7 @@
   .logo-dark { display: none; }
   .logo-light { display: block; }
 
-  /* Dark mode: show dark logo, hide light logo */
+  /* Dark mode: show dark-theme logo, hide light-theme logo */
   [data-theme="dark"] .logo-dark { display: block; }
   [data-theme="dark"] .logo-light { display: none; }
   /* keep these for any legacy references */
@@ -439,16 +578,30 @@
     list-style: none;
   }
   .nav-links a {
+    position: relative;
     font-size: 13.5px;
     font-weight: 500;
     color: var(--text);
     text-decoration: none;
     letter-spacing: 0.01em;
-    transition: color 0.2s;
+    transition: color 0.25s ease;
     opacity: 0.72;
+    padding-bottom: 4px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), #0056b3);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s var(--ease-out);
   }
   .nav-links a:focus { opacity: 1; }
-  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover { color: var(--accent); opacity: 1; }
+  .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
   .nav-cta {
     display: flex;
     align-items: center;
@@ -486,7 +639,7 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 100vh;
+    min-height: 560px;
     display: flex;
     align-items: center;
     padding: 128px 5% 60px;
@@ -629,11 +782,286 @@
   }
   .hero-stats {
     display: flex;
-    gap: 40px;
-    margin-top: 60px;
-    padding-top: 40px;
+    flex-wrap: wrap;
+    gap: 36px;
+    margin-top: 44px;
+    padding-top: 24px;
     border-top: 1px solid var(--border);
     animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .hero-stats-heading {
+    margin-top: 32px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #00e8d0;
+    animation: fadeUp 0.6s 0.35s ease both;
+  }
+  .stat-item { display: flex; flex-direction: column; }
+  .stat-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .stat-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    line-height: 1;
+    background: rgba(0,232,208,0.10);
+    border: 1px solid rgba(0,232,208,0.25);
+    border-radius: 10px;
+  }
+  .offer-stats-wrap {
+    padding: 44px 5%;
+    position: relative;
+    z-index: 2;
+  }
+  .offer-stats-wrap .offer-stats {
+    margin-top: 22px;
+    padding-top: 28px;
+  }
+  /* Achievement strip — highlighted work-count banner, first thing in hero */
+  .achieve-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: linear-gradient(135deg, rgba(0,200,180,0.12), rgba(0,110,190,0.14));
+    border: 1px solid rgba(0,200,180,0.32);
+    border-radius: 16px;
+    padding: 20px 8px;
+    margin-bottom: 32px;
+    box-shadow: 0 8px 28px rgba(0,150,140,0.12);
+    animation: fadeUp 0.6s ease both;
+  }
+  .achieve-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 18px;
+    border-right: 1px solid rgba(255,255,255,0.14);
+  }
+  .achieve-item:last-child { border-right: none; }
+  .achieve-icon {
+    font-size: 20px;
+    line-height: 1;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .achieve-text { display: flex; flex-direction: column; }
+  .achieve-num {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+  }
+  .achieve-num span { color: #00e8d0; }
+  .achieve-label {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.78);
+    font-weight: 600;
+    line-height: 1.35;
+    margin-top: 2px;
+  }
+  .achieve-sub {
+    display: block;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.42);
+    font-weight: 500;
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Full-width two-panel achievement strip (below hero) */
+  .achieve-strip--bottom {
+    grid-template-columns: unset;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    padding: 36px 5%;
+    position: relative;
+    z-index: 2;
+    gap: 0;
+  }
+  .achieve-strip--bottom,
+  [data-theme="light"] .achieve-strip--bottom {
+    background: none;
+    border-top: 1px solid rgba(0,200,180,0.18);
+    border-bottom: 1px solid rgba(0,200,180,0.18);
+  }
+  .achieve-group { display: flex; flex-direction: column; justify-content: flex-start; position: relative; }
+  .achieve-group--offer { flex: 0 0 auto; padding-right: 16px; }
+  .achieve-group--track { flex: 1 1 0; min-width: 0; padding-left: 52px; }
+  .achieve-group--offer::after,
+  .achieve-group--track::after { display: none; }
+  .achieve-group-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    position: relative;
+    z-index: 1;
+  }
+  .achieve-group-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .achieve-group--offer .achieve-group-label { color: #00e8d0; }
+  .achieve-group--offer .achieve-group-label::before { background: #00e8d0; box-shadow: 0 0 8px rgba(0,232,208,0.7); }
+  .achieve-group--track .achieve-group-label { color: #4da3ff; }
+  .achieve-group--track .achieve-group-label::before { background: #4da3ff; box-shadow: 0 0 8px rgba(77,163,255,0.7); }
+  .achieve-group-items {
+    display: flex;
+    gap: 28px;
+    position: relative;
+    z-index: 1;
+  }
+  .achieve-group--offer .achieve-group-items { gap: 24px; }
+  .achieve-group--track .achieve-group-items { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .achieve-divider {
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+  }
+  .achieve-divider span {
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.22) 20%, rgba(255,255,255,0.22) 80%, transparent);
+    display: block;
+  }
+  .achieve-strip--bottom .achieve-num,
+  [data-theme="light"] .achieve-strip--bottom .achieve-num { color: var(--text); }
+  .achieve-group--offer .achieve-num span,
+  [data-theme="light"] .achieve-group--offer .achieve-num span { color: var(--accent); }
+  .achieve-group--track .achieve-num span,
+  [data-theme="light"] .achieve-group--track .achieve-num span { color: #2f7fd6; }
+  .achieve-strip--bottom .achieve-label,
+  [data-theme="light"] .achieve-strip--bottom .achieve-label { color: var(--text-muted); }
+  .achieve-strip--bottom .achieve-sub,
+  [data-theme="light"] .achieve-strip--bottom .achieve-sub { color: var(--text-muted); }
+  .achieve-strip--bottom .achieve-item,
+  [data-theme="light"] .achieve-strip--bottom .achieve-item { border-right-color: var(--border); }
+  .achieve-strip--bottom .achieve-item {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0;
+    border-right: none;
+    flex-shrink: 0;
+  }
+  .achieve-strip--bottom .achieve-icon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border-radius: 9px;
+    margin-top: 0;
+  }
+  .achieve-group--offer .achieve-strip--bottom .achieve-icon,
+  .achieve-group--offer .achieve-icon {
+    background: rgba(0,232,208,0.10);
+    border: 1px solid rgba(0,232,208,0.24);
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 16px;
+  }
+  .achieve-group--track .achieve-strip--bottom .achieve-icon,
+  .achieve-group--track .achieve-icon {
+    background: rgba(77,163,255,0.12);
+    border: 1px solid rgba(77,163,255,0.28);
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 16px;
+  }
+  .achieve-strip--bottom .achieve-num { font-size: 18px; font-family: var(--font-display); }
+  .achieve-strip--bottom .achieve-label { font-size: 10px; line-height: 1.3; font-family: var(--font-body); }
+  .achieve-group--offer .achieve-num,
+  .achieve-group--track .achieve-num {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .achieve-group--offer .achieve-label,
+  .achieve-group--track .achieve-label {
+    font-size: 12.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+  }
+  [data-theme="light"] .achieve-group--offer .achieve-label,
+  [data-theme="light"] .achieve-group--track .achieve-label { color: var(--text); }
+  .achieve-strip--bottom .achieve-sub { font-size: 8px; }
+  .achieve-group--offer .achieve-label { width: 88px; }
+  .achieve-group--track .achieve-label { width: 150px; }
+  .achieve-group--track .achieve-item { width: 100%; }
+  .achieve-group--track .achieve-text { flex: 1; min-width: 0; }
+  @media (max-width: 900px) {
+    .achieve-strip--bottom { flex-direction: column; gap: 24px; padding: 32px 6%; }
+    .achieve-divider { display: none; }
+    .achieve-group--offer, .achieve-group--track { padding-left: 0; padding-right: 0; flex: none; }
+    .achieve-group--offer::after, .achieve-group--track::after { display: none; }
+    .achieve-group--offer .achieve-group-items,
+    .achieve-group--track .achieve-group-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 24px;
+    }
+    .achieve-group--offer .achieve-label,
+    .achieve-group--track .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(1) .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(2) .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(3) .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(4) .achieve-label {
+      width: auto;
+      max-width: 220px;
+    }
+  }
+  @media (max-width: 720px) {
+    .achieve-strip { grid-template-columns: repeat(2, 1fr); padding: 16px 6px; row-gap: 16px; }
+    .achieve-item { border-right: none; padding: 4px 10px; }
+    .achieve-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.14); }
+    .achieve-num { font-size: 20px; }
+    .achieve-strip--bottom .achieve-num { font-size: 20px; }
+    .achieve-strip--bottom .achieve-label { font-size: 11.5px; }
+    .achieve-strip--bottom .achieve-sub { font-size: 9.5px; }
+  }
+  @media (max-width: 480px) {
+    .achieve-strip { grid-template-columns: 1fr; }
+    .achieve-item:nth-child(odd) { border-right: none; }
+    .achieve-group--offer .achieve-group-items,
+    .achieve-group--track .achieve-group-items { flex-direction: column; gap: 18px; }
+    .achieve-group--offer .achieve-label,
+    .achieve-group--track .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(1) .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(2) .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(3) .achieve-label,
+    .achieve-group--track .achieve-item:nth-child(4) .achieve-label {
+      width: auto;
+      max-width: none;
+    }
   }
   .stat-item .stat-num {
     font-family: var(--font-display);
@@ -697,7 +1125,7 @@
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* ── SECTIONS ── */
-  section { padding: 100px 5%; }
+  section { padding: 64px 5%; }
   .section-tag {
     display: inline-block;
     font-size: 11px;
@@ -720,6 +1148,18 @@
     color: var(--text);
     margin-bottom: 16px;
   }
+  h3.services-subheading {
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.1vw, 28px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border);
+    display: inline-block;
+  }
   .section-sub {
     font-size: 16px;
     line-height: 1.78;
@@ -732,7 +1172,7 @@
   /* ── VISION / MISSION ── */
   .vm-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 24px;
   }
   .vm-card {
@@ -742,6 +1182,7 @@
     padding: 40px;
     position: relative;
     overflow: hidden;
+    min-width: 0;
     box-shadow: var(--shadow-sm);
     transition: transform 0.35s var(--ease-out), box-shadow 0.35s ease, border-color 0.35s ease;
   }
@@ -808,8 +1249,168 @@
     font-weight: 400;
   }
 
+  /* Research & Clinical Trial Services: "who we serve" tag row */
+  .rs-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rs-audience {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .rs-audience-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-right: 4px;
+  }
+  .rs-audience .stat-tag {
+    background: var(--accent2);
+    border: 1px solid rgba(0,200,180,0.25);
+    color: var(--text);
+    font-size: 12.5px;
+    padding: 6px 14px;
+  }
+  @media (max-width: 900px) {
+    .rs-grid-3 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+  }
+  @media (max-width: 600px) {
+    .rs-grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── OUR TRACK RECORD — editorial metric rail, no cards / no progress bars ── */
+  #track-record {
+    background:
+      radial-gradient(ellipse at 12% 0%, rgba(0,200,180,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 88% 100%, rgba(0,110,190,0.06) 0%, transparent 55%),
+      var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  [data-theme="light"] #track-record {
+    background:
+      radial-gradient(ellipse at 12% 0%, rgba(0,160,150,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 88% 100%, rgba(0,90,180,0.05) 0%, transparent 55%),
+      var(--bg);
+  }
+
+  /* A clean single-row metric rail: typography + separators instead of cards */
+  .tr-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 34px 0 30px;
+  }
+  .tr-stat {
+    min-width: 0;
+    padding: 0 34px;
+    position: relative;
+    transition: transform 0.35s var(--ease-out);
+  }
+  .tr-stat:first-child { padding-left: 0; }
+  .tr-stat:last-child { padding-right: 0; }
+  .tr-stat:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 1px;
+    height: calc(100% - 8px);
+    background: linear-gradient(to bottom, transparent, var(--border) 18%, var(--border) 82%, transparent);
+  }
+  .tr-stat:hover { transform: translateY(-3px); }
+
+  .tr-top-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .tr-icon-circle {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(0,232,208,0.10), rgba(0,110,190,0.10));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 1px solid rgba(0,200,180,0.22);
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .tr-stat:hover .tr-icon-circle {
+    background: linear-gradient(145deg, rgba(0,232,208,0.18), rgba(0,110,190,0.16));
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,150,140,0.16);
+  }
+  .tr-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.35rem, 3vw, 3.2rem);
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+  .tr-num span { color: var(--accent); }
+  .tr-label {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.55;
+    font-weight: 650;
+    max-width: 230px;
+  }
+  .tr-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 13px;
+  }
+  .tr-tag {
+    font-size: 10px;
+    font-weight: 650;
+    padding: 4px 9px;
+    border-radius: 20px;
+    background: rgba(0,200,180,0.07);
+    border: 1px solid rgba(0,200,180,0.20);
+    color: var(--text-muted);
+  }
+  .tr-tags--spacer { display: none; }
+
+  @media (max-width: 900px) {
+    .tr-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+    .tr-stat { padding: 28px 22px; }
+    .tr-stat:nth-child(odd) { padding-left: 0; }
+    .tr-stat:nth-child(even) { padding-right: 0; }
+    .tr-stat:nth-child(2)::after { display: none; }
+    .tr-stat:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+  }
+  @media (max-width: 600px) {
+    .tr-row { grid-template-columns: 1fr; padding: 8px 0; }
+    .tr-stat,
+    .tr-stat:nth-child(odd),
+    .tr-stat:nth-child(even) {
+      padding: 26px 0;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .tr-stat::after { display: none !important; }
+    .tr-stat:last-child { border-bottom: none; }
+    .tr-top-row { justify-content: center; }
+    .tr-label { margin: 0 auto; }
+    .tr-tags { justify-content: center; }
+  }
+
   /* ── REGULATIONS ── */
-  .reg-section { background: var(--surface); }
+  .reg-section { background: transparent; }
+  #documents { background: var(--surface); }
   .reg-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1046,6 +1647,8 @@
     border: 1px solid rgba(255,255,255,0.10);
     border-radius: var(--radius);
     backdrop-filter: blur(6px);
+    position: relative;
+    z-index: 2;
     transition: background 0.28s ease, border-color 0.28s ease, transform 0.28s cubic-bezier(0.16,1,0.3,1), box-shadow 0.28s ease;
   }
   .process-step:hover {
@@ -1092,21 +1695,22 @@
   /* ── DOCUMENTS ── */
   .docs-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 14px;
   }
   .doc-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
+    background: linear-gradient(145deg, var(--surface2) 0%, rgba(0,200,180,0.07) 100%);
+    border: 1px solid rgba(0,200,180,0.22);
     border-radius: var(--radius-sm);
     padding: 18px 16px;
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-sm), 0 0 0 1px rgba(0,200,180,0.05);
     transition: border-color 0.35s ease, transform 0.35s var(--ease-out), box-shadow 0.35s ease, background 0.35s ease;
     display: flex;
     align-items: center;
     gap: 12px;
     position: relative;
     overflow: hidden;
+    min-width: 0;
   }
   .doc-card::before {
     content: '';
@@ -1135,6 +1739,8 @@
     font-weight: 500;
     color: var(--text);
     line-height: 1.38;
+    min-width: 0;
+    overflow-wrap: break-word;
   }
 
   /* ── WHY US ── */
@@ -1847,11 +2453,11 @@
   @media (max-width: 1024px) {
     nav { padding: 0 4%; height: 84px; }
     nav.scrolled { height: 72px; }
-    section { padding: 80px 4%; }
+    section { padding: 56px 4%; }
     .hero { padding: 110px 4% 60px; }
     .contact-section { padding: 80px 4% 90px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-    .docs-grid { grid-template-columns: repeat(4, 1fr); }
+    .docs-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
     .contact-wrapper { gap: 32px; }
     .cta-box { padding: 64px 48px; }
     .contact-form-card { padding: 36px 28px; }
@@ -1870,14 +2476,14 @@
     nav { height: 72px; padding: 0 5%; }
     nav.scrolled { height: 62px; }
     .logo-img { height: 52px; }
-    section { padding: 72px 5%; }
+    section { padding: 48px 5%; }
     .hero { padding: 100px 5% 56px; }
     h1.hero-title { font-size: clamp(24px, 3.8vw, 44px); letter-spacing: 0.04em; }
     h2.section-title { font-size: clamp(26px, 4vw, 40px); }
-    .vm-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .vm-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
     .reg-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
     .why-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
-    .docs-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .docs-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
     .contact-wrapper { grid-template-columns: 1fr; gap: 28px; }
     .process-steps { max-width: 100%; }
     .contact-form-card { padding: 32px 24px; }
@@ -1923,7 +2529,7 @@
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0;
+      gap: 18px 0;
       padding-top: 20px;
       margin-top: 28px;
       border-top: 1px solid rgba(0,200,180,0.2);
@@ -1937,12 +2543,13 @@
       border-right: 1px solid rgba(0,200,180,0.15);
     }
     .stat-item:last-child { border-right: none; }
+    .stat-item:nth-child(3n) { border-right: none; }
     .stat-item .stat-num { font-size: 22px; font-weight: 800; }
     .stat-item .stat-num span { color: var(--accent); }
     .stat-item .stat-label { font-size: 10px; margin-top: 4px; line-height: 1.3; color: var(--text-muted); }
 
     /* Sections */
-    section { padding: 56px 5%; }
+    section { padding: 40px 5%; }
     .contact-section { padding: 56px 5% 64px; }
     h2.section-title { font-size: clamp(24px, 7vw, 34px); margin-bottom: 12px; }
     .section-sub { font-size: 14px; margin-bottom: 36px; max-width: 100%; }
@@ -1951,7 +2558,7 @@
     .vm-grid { grid-template-columns: 1fr; gap: 14px; }
     .reg-grid { grid-template-columns: 1fr; gap: 14px; }
     .why-grid { grid-template-columns: 1fr; gap: 14px; }
-    .docs-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .docs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 
     /* Card padding */
@@ -2056,20 +2663,538 @@
     .btn-primary, .btn-outline, .btn-white, .btn-ghost { font-size: 13px; padding: 11px 18px; }
   }
 </style>
+
+<style id="refined-transitions-only">
+/* =========================================================
+   TRANSITIONS ONLY
+   Keeps the original card components/layout unchanged.
+   Adds the softer interaction effects from the refined UI.
+   ========================================================= */
+
+/* Regulation cards — retain original cards, soften the interaction */
+.reg-card {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.35s ease,
+    background-color 0.3s ease;
+}
+
+.reg-card:hover {
+  background-color: rgba(0, 200, 180, 0.035);
+  transform: translateY(-4px);
+}
+
+.reg-flag {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reg-card:hover .reg-flag {
+  transform: translateY(-2px);
+}
+
+.reg-card h3 {
+  transition: color 0.3s ease;
+}
+
+
+/* Process cards — retain original cards, add smooth movement */
+.process-step {
+  transition:
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s ease;
+}
+
+.process-step:hover {
+  background-color: rgba(0, 200, 180, 0.035);
+  transform: translateX(5px);
+}
+
+.step-num {
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.process-step:hover .step-num {
+  transform: translateY(-2px);
+}
+
+
+/* Respect reduced-motion accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reg-card,
+  .reg-flag,
+  .reg-card h3,
+  .process-step,
+  .step-num {
+    transition: none !important;
+  }
+
+  .reg-card:hover,
+  .reg-card:hover .reg-flag,
+  .process-step:hover,
+  .process-step:hover .step-num {
+    transform: none !important;
+  }
+}
+</style>
+
+
+<style id="white-theme-refinement">
+/* =========================================================
+   WHITE THEME REFINEMENT
+   - Removes unnecessary vertical whitespace
+   - Improves light/white theme hierarchy
+   - Keeps existing components/layout intact
+   ========================================================= */
+
+/* Reduce excessive section spacing in the white theme */
+body[data-theme="light"] section {
+  scroll-margin-top: 86px;
+}
+
+body[data-theme="light"] .hero {
+  min-height: 86vh;
+}
+
+body[data-theme="light"] .hero-content {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+body[data-theme="light"] .section {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
+body[data-theme="light"] .process-section,
+body[data-theme="light"] .reg-section,
+body[data-theme="light"] .contact-section {
+  padding-top: 68px;
+  padding-bottom: 68px;
+}
+
+/* Prevent large gaps caused by empty decorative areas */
+body[data-theme="light"] .section-sub {
+  margin-bottom: 34px;
+}
+
+body[data-theme="light"] .process-steps,
+body[data-theme="light"] .reg-grid {
+  margin-top: 30px;
+}
+
+/* Cleaner white background hierarchy */
+body[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f4f8fa;
+  --text: #102033;
+  --muted: #5d6b78;
+  --border: rgba(16, 32, 51, 0.10);
+  --accent: #009f91;
+  --accent-2: #1769aa;
+}
+
+/* Keep major areas clean and bright */
+body[data-theme="light"] .hero,
+body[data-theme="light"] .process-section,
+body[data-theme="light"] .reg-section,
+body[data-theme="light"] .contact-section {
+  background-color: #f8fafc;
+}
+
+/* White surfaces with subtle separation instead of heavy shadows */
+body[data-theme="light"] .service-card,
+body[data-theme="light"] .reg-card,
+body[data-theme="light"] .process-step,
+body[data-theme="light"] .contact-card,
+body[data-theme="light"] .contact-form-card {
+  background: #ffffff;
+  border-color: rgba(16, 32, 51, 0.09);
+  box-shadow: 0 8px 28px rgba(16, 32, 51, 0.055);
+}
+
+/* More refined card hover in white mode */
+body[data-theme="light"] .service-card:hover,
+body[data-theme="light"] .reg-card:hover,
+body[data-theme="light"] .process-step:hover,
+body[data-theme="light"] .contact-card:hover {
+  box-shadow: 0 14px 34px rgba(16, 32, 51, 0.085);
+}
+
+/* Softer decorative effects */
+body[data-theme="light"] .hero::before,
+body[data-theme="light"] .hero::after {
+  opacity: 0.45;
+}
+
+/* Improve text contrast */
+body[data-theme="light"] .section-sub,
+body[data-theme="light"] .service-card p,
+body[data-theme="light"] .reg-card p,
+body[data-theme="light"] .step-content p,
+body[data-theme="light"] .contact-left .section-sub {
+  color: #5b6875;
+}
+
+/* Reduce oversized empty areas around CTA */
+body[data-theme="light"] .cta-section {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+body[data-theme="light"] .cta-box {
+  padding-top: 54px;
+  padding-bottom: 54px;
+}
+
+/* Mobile: tighter vertical rhythm */
+@media (max-width: 768px) {
+  body[data-theme="light"] .hero-content {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  body[data-theme="light"] .section,
+  body[data-theme="light"] .process-section,
+  body[data-theme="light"] .reg-section,
+  body[data-theme="light"] .contact-section {
+    padding-top: 52px;
+    padding-bottom: 52px;
+  }
+
+  body[data-theme="light"] .section-sub {
+    margin-bottom: 26px;
+  }
+
+  body[data-theme="light"] .cta-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+</style>
+
+<style id="spacing-refinement">
+/* =========================================================
+   SPACING REFINEMENT
+   - Tighter gap between header and hero intro
+   - More compact spacing between page sections
+   - Keeps all existing components unchanged
+   ========================================================= */
+
+body[data-theme="light"] nav {
+  height: 78px;
+}
+
+body[data-theme="light"] .hero {
+  min-height: 74vh;
+  padding: 92px 5% 52px;
+}
+
+body[data-theme="light"] .hero-content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+body[data-theme="light"] .section {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+body[data-theme="light"] .process-section,
+body[data-theme="light"] .reg-section,
+body[data-theme="light"] .contact-section {
+  padding-top: 54px;
+  padding-bottom: 54px;
+}
+
+body[data-theme="light"] .section-sub {
+  margin-bottom: 28px;
+}
+
+body[data-theme="light"] .process-steps,
+body[data-theme="light"] .reg-grid {
+  margin-top: 24px;
+}
+
+body[data-theme="light"] .cta-section {
+  padding-top: 46px;
+  padding-bottom: 46px;
+}
+
+body[data-theme="light"] .cta-box {
+  padding-top: 46px;
+  padding-bottom: 46px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  body[data-theme="light"] nav {
+    height: 68px;
+  }
+
+  body[data-theme="light"] .hero {
+    min-height: auto;
+    padding: 82px 5% 48px;
+  }
+
+  body[data-theme="light"] .section,
+  body[data-theme="light"] .process-section,
+  body[data-theme="light"] .reg-section,
+  body[data-theme="light"] .contact-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  body[data-theme="light"] nav {
+    height: 62px;
+  }
+
+  body[data-theme="light"] .hero {
+    padding: 74px 5% 40px;
+  }
+
+  body[data-theme="light"] .section,
+  body[data-theme="light"] .process-section,
+  body[data-theme="light"] .reg-section,
+  body[data-theme="light"] .contact-section {
+    padding-top: 42px;
+    padding-bottom: 42px;
+  }
+
+  body[data-theme="light"] .section-sub {
+    margin-bottom: 22px;
+  }
+
+  body[data-theme="light"] .process-steps,
+  body[data-theme="light"] .reg-grid {
+    margin-top: 20px;
+  }
+
+  body[data-theme="light"] .cta-section {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  body[data-theme="light"] .cta-box {
+    padding-top: 38px;
+    padding-bottom: 38px;
+  }
+}
+
+
+  /* ── PROCESS CONNECTOR: refined vertical journey line ── */
+  .process-steps::before {
+    left: 62px;
+    top: 34px;
+    bottom: 34px;
+    width: 3px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 200, 180, 0.08) 0%,
+      rgba(0, 200, 180, 0.85) 14%,
+      rgba(0, 200, 180, 0.45) 50%,
+      rgba(0, 105, 92, 0.78) 86%,
+      rgba(0, 200, 180, 0.08) 100%
+    );
+    box-shadow:
+      0 0 4px rgba(0, 200, 180, 0.55),
+      0 0 16px rgba(0, 200, 180, 0.16);
+    z-index: 0;
+  }
+
+  /* Secondary hairline gives the connector a more engineered appearance. */
+  .process-steps::after {
+    content: '';
+    position: absolute;
+    left: 61px;
+    top: 34px;
+    bottom: 34px;
+    width: 5px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 200, 180, 0.16) 12%,
+      rgba(0, 200, 180, 0.04) 50%,
+      rgba(0, 200, 180, 0.16) 88%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Soft traveling highlight makes the process feel connected without being distracting. */
+  .process-steps::marker { display: none; }
+  @keyframes processLinePulse {
+    0% { transform: translateY(-12px); opacity: 0; }
+    12% { opacity: 0.9; }
+    48% { opacity: 0.65; }
+    100% { transform: translateY(calc(100% - 8px)); opacity: 0; }
+  }
+
+  .process-step::after {
+    content: '';
+    position: absolute;
+    left: 60px;
+    top: -1px;
+    width: 7px;
+    height: 34px;
+    border-radius: 999px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 255, 220, 0.75), transparent);
+    filter: blur(1px);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .process-step:hover::after { opacity: 0.75; }
+
+  /* Make the numbered nodes feel physically connected to the spine. */
+  .step-num {
+    box-shadow: 0 0 0 5px rgba(0, 200, 180, 0.025), 0 0 18px rgba(0, 200, 180, 0.08);
+  }
+  .process-step:hover .step-num {
+    box-shadow: 0 0 0 6px rgba(0, 200, 180, 0.10), 0 0 24px rgba(0, 200, 180, 0.18);
+  }
+
+  /* White theme: cleaner blue/teal connector with subtle depth. */
+  [data-theme="light"] .process-steps::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 137, 123, 0.08) 0%,
+      rgba(0, 137, 123, 0.78) 14%,
+      rgba(0, 86, 179, 0.38) 50%,
+      rgba(0, 137, 123, 0.68) 86%,
+      rgba(0, 137, 123, 0.08) 100%
+    );
+    box-shadow:
+      0 0 4px rgba(0, 137, 123, 0.34),
+      0 0 14px rgba(0, 86, 179, 0.10);
+  }
+  [data-theme="light"] .process-steps::after {
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 137, 123, 0.10),
+      transparent
+    );
+  }
+  [data-theme="light"] .process-step::after {
+    background: linear-gradient(to bottom, transparent, rgba(0, 137, 123, 0.42), transparent);
+  }
+  [data-theme="light"] .step-num {
+    box-shadow: 0 0 0 5px rgba(0, 137, 123, 0.035), 0 0 16px rgba(0, 86, 179, 0.08);
+  }
+
+  @media (max-width: 600px) {
+    .process-steps::before { left: 39px; top: 28px; bottom: 28px; }
+    .process-steps::after { left: 38px; top: 28px; bottom: 28px; }
+    .process-step::after { left: 37px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-step::after { animation: none; }
+  }
+</style>
+
+<style id="clinical-illustration-enhancement">
+/* =========================================================
+   CLINICAL / REGULATORY VISUAL LANGUAGE
+   Subtle line-art accents inspired by the supplied reference.
+   ========================================================= */
+.clinical-art {
+  position: absolute;
+  pointer-events: none;
+  color: var(--accent);
+  z-index: 0;
+  opacity: .72;
+}
+.clinical-art svg { width: 100%; height: 100%; display: block; }
+
+.section-with-art { position: relative; overflow: hidden; }
+.services-clinical-art {
+  width: 190px;
+  height: 165px;
+  right: 4%;
+  top: 28px;
+  opacity: .20;
+}
+.process-section { position: relative; overflow: hidden; }
+.process-clinical-art {
+  width: 250px;
+  height: 410px;
+  right: -10px;
+  top: 120px;
+  opacity: .30;
+}
+.process-section .process-steps { position: relative; z-index: 2; }
+
+/* Give the illustrations a restrained glow in dark mode. */
+[data-theme="dark"] .services-clinical-art { opacity: .23; }
+[data-theme="dark"] .process-clinical-art { opacity: .34; }
+
+/* Keep the white theme crisp rather than overly luminous. */
+[data-theme="light"] .services-clinical-art {
+  opacity: .34;
+  color: #009f91;
+  filter: drop-shadow(0 8px 20px rgba(0, 159, 145, .10));
+}
+[data-theme="light"] .process-clinical-art {
+  opacity: .30;
+  color: #008f96;
+  filter: drop-shadow(0 8px 24px rgba(0, 143, 150, .08));
+}
+
+/* Improve the visibility of line-art SVGs on the light background. */
+[data-theme="light"] .clinical-art svg [stroke="currentColor"] {
+  stroke: currentColor;
+}
+[data-theme="light"] .clinical-art svg [fill="currentColor"] {
+  fill: currentColor;
+}
+[data-theme="light"] .services-clinical-art svg,
+[data-theme="light"] .process-clinical-art svg {
+  mix-blend-mode: normal;
+}
+
+@media (max-width: 900px) {
+  .services-clinical-art { right: -20px; opacity: .10; }
+  .process-clinical-art { right: -55px; opacity: .13; }
+}
+
+@media (max-width: 600px) {
+  .services-clinical-art, .process-clinical-art { display: none; }
+}
+
+</style>
+
 </head>
 <body data-theme="dark">
+
+<div id="scroll-progress"></div>
 
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
     <img src="Crescent_logo_light.png" class="logo-img logo-light" alt="Crescent Clinical Development">
-    <img src="Crescent_logo_dark.png"  class="logo-img logo-dark"  alt="Crescent Clinical Development">
+    <img src="Crescent_logo_dark.png" class="logo-img logo-dark"  alt="Crescent Clinical Development">
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#regulations">Regulations</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="#track-record">Track Record</a></li>
+    <li><a href="#documents">Services</a></li>
     <li><a href="#process">Process</a></li>
+    <li><a href="#regulations">Regulations</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-cta">
@@ -2083,9 +3208,10 @@
 <div class="mobile-menu" id="mobileMenu">
   <ul>
     <li><a href="#about" onclick="toggleMenu()">About</a></li>
-    <li><a href="#regulations" onclick="toggleMenu()">Regulations</a></li>
-    <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+    <li><a href="#track-record" onclick="toggleMenu()">Track Record</a></li>
+    <li><a href="#documents" onclick="toggleMenu()">Services</a></li>
     <li><a href="#process" onclick="toggleMenu()">Process</a></li>
+    <li><a href="#regulations" onclick="toggleMenu()">Regulations</a></li>
     <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
   </ul>
 </div>
@@ -2103,20 +3229,29 @@
     <h1 class="hero-title" id="hero-title-el">Bridging Manufacturing<em>& Regulatory Excellence</em></h1>
     <p class="hero-sub" id="hero-sub-el">Specialist clinical trial services for pharmaceutical and medical device manufacturers. End-to-end compliance with EU MDR, CDSCO &amp; US FDA regulations.</p>
     <div class="hero-actions">
-      <a href="#services" class="btn-primary">Explore Services →</a>
+      <a href="#documents" class="btn-primary">Explore Services →</a>
       <a href="#contact" class="btn-outline">Contact Us</a>
     </div>
     <div class="hero-stats">
       <div class="stat-item">
-        <div class="stat-num"><span class="stat-count" data-target="3">3</span><span>+</span></div>
+        <div class="stat-top">
+          <div class="stat-icon">⚖️</div>
+          <div class="stat-num"><span class="stat-count" data-target="3">3</span><span>+</span></div>
+        </div>
         <div class="stat-label">Regulatory Frameworks</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num"><span class="stat-count" data-target="360">360</span><span>°</span></div>
+        <div class="stat-top">
+          <div class="stat-icon">🔄</div>
+          <div class="stat-num"><span class="stat-count" data-target="360">360</span><span>°</span></div>
+        </div>
         <div class="stat-label">Clinical Support</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num"><span class="stat-count" data-target="100">100</span><span>%</span></div>
+        <div class="stat-top">
+          <div class="stat-icon">✅</div>
+          <div class="stat-num"><span class="stat-count" data-target="100">100</span><span>%</span></div>
+        </div>
         <div class="stat-label">Compliance Focus</div>
       </div>
     </div>
@@ -2132,12 +3267,12 @@
       <circle class="orb-center" cx="190" cy="190" r="46" stroke-width="1.5"/>
       <path class="orb-crescent" d="M190 144 A46 46 0 0 1 190 236 A30 30 0 0 0 190 144Z"/>
       <!-- Orbiting nodes -->
-      <circle class="orb-node" cx="190" cy="30" r="10" stroke-width="1.5"/>
-      <text class="orb-node-text" x="190" y="34" text-anchor="middle" font-size="9" font-family="sans-serif" font-weight="bold">FDA</text>
-      <circle class="orb-node" cx="330" cy="245" r="10"/>
-      <text class="orb-node-text" x="330" y="249" text-anchor="middle" font-size="8" font-family="sans-serif" font-weight="bold">MDR</text>
-      <circle class="orb-node" cx="50" cy="245" r="10"/>
-      <text class="orb-node-text" x="50" y="249" text-anchor="middle" font-size="7" font-family="sans-serif" font-weight="bold">CDSCO</text>
+      <circle class="orb-node" cx="190" cy="30" r="15" stroke-width="1.5"/>
+      <text class="orb-node-text" x="190" y="34" text-anchor="middle" font-size="10" font-family="sans-serif" font-weight="bold">FDA</text>
+      <circle class="orb-node" cx="330" cy="245" r="15"/>
+      <text class="orb-node-text" x="330" y="249" text-anchor="middle" font-size="9" font-family="sans-serif" font-weight="bold">MDR</text>
+      <circle class="orb-node" cx="50" cy="245" r="15"/>
+      <text class="orb-node-text" x="50" y="249" text-anchor="middle" font-size="8" font-family="sans-serif" font-weight="bold">CDSCO</text>
       <!-- Connecting lines -->
       <line class="orb-line" x1="190" y1="40" x2="190" y2="110" stroke-width="1" stroke-dasharray="4 3"/>
       <line class="orb-line" x1="321" y1="240" x2="265" y2="216" stroke-width="1" stroke-dasharray="4 3"/>
@@ -2150,6 +3285,7 @@
       <circle class="orb-dot" cx="190" cy="350" r="5"/>
     </svg>
   </div>
+
 </section>
 
 <!-- MARQUEE -->
@@ -2197,52 +3333,124 @@
   </div>
 </section>
 
-<!-- REGULATIONS -->
-<section id="regulations" class="reg-section">
-  <div class="section-tag reveal-left">Regulatory Expertise</div>
-  <h2 class="section-title">Frameworks We Work In</h2>
-  <p class="section-sub">Deep expertise across the three major regulatory frameworks governing pharmaceutical and medical device clinical trials worldwide.</p>
-  <div class="reg-grid fade-in stagger">
-    <div class="reg-card">
-      <div class="reg-flag">🇪🇺</div>
-      <h3>EU MDR</h3>
-      <div class="reg-full">European Medical Device Regulation</div>
-      <p>Full compliance with MDR 2017/745 and IVDR 2017/746 for CE marking, clinical evaluation, post-market clinical follow-up, and PMCF studies.</p>
-      <div class="reg-tags">
-        <span class="reg-tag">MDR 2017/745</span>
-        <span class="reg-tag">IVDR 2017/746</span>
-        <span class="reg-tag">PMCF</span>
-        <span class="reg-tag">CER</span>
+<!-- OUR TRACK RECORD -->
+<section id="track-record">
+  <div class="section-tag reveal-left">Our Track Record</div>
+  <h2 class="section-title">Proven Results, Delivered</h2>
+  <p class="section-sub">A track record built on precision — measurable outcomes across every regulatory and clinical engagement.</p>
+
+  <div class="tr-row fade-in stagger">
+    <div class="tr-stat">
+      <div class="tr-top-row">
+        <div class="tr-icon-circle">📄</div>
+        <div class="tr-num"><span class="stat-count" data-target="30">30</span><span>+</span></div>
+      </div>
+      <div class="tr-label">Clinical Evaluation Reports Prepared &amp; Reviewed</div>
+    </div>
+
+    <div class="tr-stat">
+      <div class="tr-top-row">
+        <div class="tr-icon-circle">🏛️</div>
+        <div class="tr-num"><span class="stat-count" data-target="5">5</span></div>
+      </div>
+      <div class="tr-label">Notified Body Interactions</div>
+      <div class="tr-tags">
+        <span class="tr-tag">EU MDR</span>
+        <span class="tr-tag">ANVISA</span>
+        <span class="tr-tag">CDSCO</span>
       </div>
     </div>
-    <div class="reg-card">
-      <div class="reg-flag">🇮🇳</div>
-      <h3>CDSCO</h3>
-      <div class="reg-full">Central Drugs Standard Control Organisation</div>
-      <p>Navigation of the Indian regulatory landscape including New Drugs & Clinical Trials Rules 2019, device licensing under MDR 2017, and site approvals.</p>
-      <div class="reg-tags">
-        <span class="reg-tag">NDCT Rules 2019</span>
-        <span class="reg-tag">MDR 2017</span>
-        <span class="reg-tag">IEC</span>
-        <span class="reg-tag">BA/BE</span>
+
+    <div class="tr-stat">
+      <div class="tr-top-row">
+        <div class="tr-icon-circle">📊</div>
+        <div class="tr-num"><span class="stat-count" data-target="10">10</span><span>+</span></div>
       </div>
+      <div class="tr-label">Post-Market Surveillance &amp; Documentation</div>
     </div>
-    <div class="reg-card">
-      <div class="reg-flag">🇺🇸</div>
-      <h3>US FDA</h3>
-      <div class="reg-full">Food & Drug Administration</div>
-      <p>Comprehensive support for IDE/IND applications, 510(k) and PMA submissions, FDA GCP inspections, and device study regulatory strategy.</p>
-      <div class="reg-tags">
-        <span class="reg-tag">510(k)</span>
-        <span class="reg-tag">PMA</span>
-        <span class="reg-tag">21 CFR 812</span>
+
+    <div class="tr-stat">
+      <div class="tr-top-row">
+        <div class="tr-icon-circle">🤝</div>
+        <div class="tr-num"><span class="stat-count" data-target="10">10</span><span>+</span></div>
       </div>
+      <div class="tr-label">Clinician Collaborations for Trial Execution</div>
     </div>
   </div>
 </section>
 
+<!-- DOCUMENTS -->
+<section id="documents" class="section-with-art">
+  <div class="clinical-art services-clinical-art" aria-hidden="true">
+    <svg viewBox="0 0 220 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="48" y="30" width="112" height="136" rx="10" stroke="currentColor" stroke-opacity=".20"/>
+      <path d="M73 66h62M73 91h47M73 116h58" stroke="currentColor" stroke-opacity=".28" stroke-width="4" stroke-linecap="round"/>
+      <path d="m76 139 11 10 21-24" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M83 30V20h42v10" stroke="currentColor" stroke-opacity=".25" stroke-width="3"/>
+      <circle cx="174" cy="48" r="25" stroke="currentColor" stroke-opacity=".16"/>
+      <path d="M174 35v26M161 48h26" stroke="currentColor" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="36" cy="143" r="15" stroke="currentColor" stroke-opacity=".15"/>
+      <path d="M36 135v16M28 143h16" stroke="currentColor" stroke-opacity=".38" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="section-tag reveal-left">Services</div>
+  <h2 class="section-title">Services We Provide</h2>
+  <h3 class="services-subheading">Clinical &amp; Regulatory Document Services</h3>
+  <div class="docs-grid fade-in stagger">
+    <div class="doc-card"><div class="doc-icon">✍️</div><span>Technical Writing</span></div>
+    <div class="doc-card"><div class="doc-icon">🔐</div><span>Risk Management File Contributions</span></div>
+    <div class="doc-card"><div class="doc-icon">🔍</div><span>Clinical Evaluation Report (CER)</span></div>
+    <div class="doc-card"><div class="doc-icon">📰</div><span>Literature Review &amp; Appraisal</span></div>
+    <div class="doc-card"><div class="doc-icon">🧬</div><span>Biocompatibility</span></div>
+    <div class="doc-card"><div class="doc-icon">📑</div><span>Clinical Investigation Plan (CIP)</span></div>
+    <div class="doc-card"><div class="doc-icon">📊</div><span>Clinical Study Report (CSR)</span></div>
+    <div class="doc-card"><div class="doc-icon">🧾</div><span>Investigator's Brochure (IB)</span></div>
+    <div class="doc-card"><div class="doc-icon">✅</div><span>Informed Consent Form (ICF)</span></div>
+    <div class="doc-card"><div class="doc-icon">🏥</div><span>Ethics / IEC Submissions</span></div>
+    <div class="doc-card"><div class="doc-icon">🗂️</div><span>PMCF Plan &amp; Evaluation Report</span></div>
+    <div class="doc-card"><div class="doc-icon">📋</div><span>Summary of Safety &amp; Clinical Performance (SSCP)</span></div>
+  </div>
+</section>
+
+<!-- RESEARCH & CLINICAL TRIAL SERVICES -->
+<section id="research-services">
+  <h3 class="services-subheading">Research &amp; Clinical Trial Services</h3>
+  <p class="section-sub" style="max-width:none;">We provide research, clinical trial management, and clinical site management services to clinicians, pharmaceutical companies, and medical device industries, supporting the strategic planning and effective execution of clinical research programs.</p>
+
+  <div class="vm-grid rs-grid-3 fade-in stagger">
+    <div class="vm-card">
+      <div class="vm-card-header">
+        <div class="vm-icon">🔬</div>
+        <h3>Research Services</h3>
+      </div>
+      <p>Protocol design, feasibility assessment, and scientific support to move research programs from concept to execution with rigor and precision.</p>
+    </div>
+    <div class="vm-card">
+      <div class="vm-card-header">
+        <div class="vm-icon">📋</div>
+        <h3>Clinical Trial Management</h3>
+      </div>
+      <p>End-to-end trial oversight — timelines, monitoring, data integrity, and vendor coordination — to keep studies compliant and on track.</p>
+    </div>
+    <div class="vm-card">
+      <div class="vm-card-header">
+        <div class="vm-icon">🏥</div>
+        <h3>Clinical Site Management</h3>
+      </div>
+      <p>Site selection, activation, and ongoing support to ensure investigator sites operate efficiently and stay inspection-ready.</p>
+    </div>
+  </div>
+
+  <div class="rs-audience fade-in">
+    <span class="rs-audience-label">Who we serve</span>
+    <span class="stat-tag">Clinicians</span>
+    <span class="stat-tag">Pharmaceutical Companies</span>
+    <span class="stat-tag">Medical Device Industries</span>
+  </div>
+</section>
+
 <!-- SERVICES -->
-<section id="services">
+<section id="services" style="display:none;">
   <div class="section-tag reveal-left">What We Offer</div>
   <h2 class="section-title">Clinical Development Services</h2>
   <p class="section-sub">From trial design to final submission — comprehensive support across every phase of clinical development and documentation.</p>
@@ -2307,6 +3515,19 @@
 
 <!-- PROCESS -->
 <section id="process" class="process-section">
+
+  <!-- Subtle clinical workflow network -->
+  <div class="clinical-art process-clinical-art" aria-hidden="true">
+    <svg viewBox="0 0 320 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M82 52C160 95 158 148 82 190s-78 96 0 138 78 96 0 138" stroke="currentColor" stroke-opacity=".13" stroke-width="2"/>
+      <path d="M238 52C160 95 162 148 238 190s78 96 0 138-78 96 0 138" stroke="currentColor" stroke-opacity=".08" stroke-width="2"/>
+      <circle cx="82" cy="52" r="7" fill="currentColor" fill-opacity=".35"/>
+      <circle cx="238" cy="190" r="7" fill="currentColor" fill-opacity=".24"/>
+      <circle cx="82" cy="328" r="7" fill="currentColor" fill-opacity=".24"/>
+      <circle cx="238" cy="466" r="7" fill="currentColor" fill-opacity=".18"/>
+      <path d="M82 52h58M180 190h58M82 328h58M180 466h58" stroke="currentColor" stroke-opacity=".10" stroke-dasharray="4 7"/>
+    </svg>
+  </div>
 
   <!-- Decorative crescent (mirrors the brand logo) -->
   <svg class="process-crescent" viewBox="0 0 380 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2401,27 +3622,52 @@
   </div>
 </section>
 
-<!-- DOCUMENTS -->
-<section id="documents">
-  <div class="section-tag reveal-left">Documentation</div>
-  <h2 class="section-title">Clinical Documents We Prepare</h2>
-  <p class="section-sub">A comprehensive suite of regulatory and clinical documents authored by subject-matter experts.</p>
-  <div class="docs-grid fade-in stagger">
-    <div class="doc-card"><div class="doc-icon">📑</div><span>Clinical Investigation Plan (CIP)</span></div>
-    <div class="doc-card"><div class="doc-icon">📊</div><span>Clinical Study Report (CSR)</span></div>
-    <div class="doc-card"><div class="doc-icon">🔍</div><span>Clinical Evaluation Report (CER)</span></div>
-    <div class="doc-card"><div class="doc-icon">📰</div><span>Literature Review & Appraisal</span></div>
-    <div class="doc-card"><div class="doc-icon">🧾</div><span>Investigator's Brochure (IB)</span></div>
-    <div class="doc-card"><div class="doc-icon">✅</div><span>Informed Consent Form (ICF)</span></div>
-    <div class="doc-card"><div class="doc-icon">🏥</div><span>Ethics / IEC Submissions</span></div>
-    <div class="doc-card"><div class="doc-icon">🗂️</div><span>PMCF Plan & Evaluation Report</span></div>
-    <div class="doc-card"><div class="doc-icon">📋</div><span>Summary of Safety & Clinical Performance (SSCP)</span></div>
-    <div class="doc-card"><div class="doc-icon">🔐</div><span>Risk Management File Contributions</span></div>
+<!-- WHY US -->
+<!-- REGULATIONS -->
+<section id="regulations" class="reg-section">
+  <div class="section-tag reveal-left">Regulatory Expertise</div>
+  <h2 class="section-title">Frameworks We Work In</h2>
+  <p class="section-sub">Deep expertise across the three major regulatory frameworks governing pharmaceutical and medical device clinical trials worldwide.</p>
+  <div class="reg-grid fade-in stagger">
+    <div class="reg-card">
+      <div class="reg-flag">🇪🇺</div>
+      <h3>EU MDR</h3>
+      <div class="reg-full">European Medical Device Regulation</div>
+      <p>Full compliance with MDR 2017/745 and IVDR 2017/746 for CE marking, clinical evaluation, post-market clinical follow-up, and PMCF studies.</p>
+      <div class="reg-tags">
+        <span class="reg-tag">MDR 2017/745</span>
+        <span class="reg-tag">IVDR 2017/746</span>
+        <span class="reg-tag">PMCF</span>
+        <span class="reg-tag">CER</span>
+      </div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-flag">🇮🇳</div>
+      <h3>CDSCO</h3>
+      <div class="reg-full">Central Drugs Standard Control Organisation</div>
+      <p>Navigation of the Indian regulatory landscape including New Drugs & Clinical Trials Rules 2019, device licensing under MDR 2017, and site approvals.</p>
+      <div class="reg-tags">
+        <span class="reg-tag">NDCT Rules 2019</span>
+        <span class="reg-tag">MDR 2017</span>
+        <span class="reg-tag">IEC</span>
+        <span class="reg-tag">BA/BE</span>
+      </div>
+    </div>
+    <div class="reg-card">
+      <div class="reg-flag">🇺🇸</div>
+      <h3>US FDA</h3>
+      <div class="reg-full">Food & Drug Administration</div>
+      <p>Comprehensive support for IDE/IND applications, 510(k) and PMA submissions, FDA GCP inspections, and device study regulatory strategy.</p>
+      <div class="reg-tags">
+        <span class="reg-tag">510(k)</span>
+        <span class="reg-tag">PMA</span>
+        <span class="reg-tag">21 CFR 812</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- WHY US -->
-<section class="why-section">
+<section class="why-section" style="display:none;">
   <div class="section-tag reveal-left">Why Choose Us</div>
   <h2 class="section-title">The Crescent Advantage</h2>
   <p class="section-sub">We combine deep regulatory knowledge with clinical expertise to deliver outcomes that bridge the gap between manufacturing and market approval.</p>
@@ -2478,7 +3724,7 @@
     <p>Let's discuss your regulatory and clinical trial requirements. Our experts are ready to design a tailored compliance pathway for your product.</p>
     <div class="cta-actions">
       <a href="#contact" class="btn-white">Start a Conversation</a>
-      <a href="#services" class="btn-ghost">View All Services</a>
+      <a href="#documents" class="btn-ghost">View All Services</a>
     </div>
   </div>
 </section>
@@ -2504,7 +3750,7 @@
         <div class="contact-card">
           <div class="ci-icon">📞</div>
           <div>
-            <div class="ci-text" id="ci-phone">+91 99525 20472</div>
+            <div class="ci-text" id="ci-phone">+91 81220 50472</div>
             <div class="ci-sub">Mon – Fri, 9:00 – 18:00 IST</div>
           </div>
         </div>
@@ -2593,11 +3839,11 @@
       <div class="footer-col">
         <h4>Services</h4>
         <ul>
-          <li><a href="#services">Clinical Trial Management</a></li>
-          <li><a href="#services">Regulatory Strategy</a></li>
-          <li><a href="#services">Document Preparation</a></li>
-          <li><a href="#services">Medical Device CER</a></li>
-          <li><a href="#services">PMCF Studies</a></li>
+          <li><a href="#documents">Clinical Trial Management</a></li>
+          <li><a href="#documents">Regulatory Strategy</a></li>
+          <li><a href="#documents">Document Preparation</a></li>
+          <li><a href="#documents">Medical Device CER</a></li>
+          <li><a href="#documents">PMCF Studies</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2622,7 +3868,7 @@
   </div>
   <div class="footer-bottom">
    
-    <p id="footer-copy" style="font-size:12px;">© 2025 Crescent Clinical Development. All rights reserved.</p>
+    <p id="footer-copy" style="font-size:12px;">© 2026 Crescent Clinical Development. All rights reserved.</p>
      </div>
 </footer>
 
@@ -2922,6 +4168,9 @@
   // ── SCROLL TO TOP ──
   window.addEventListener('scroll', () => {
     document.getElementById('scroll-top').classList.toggle('visible', window.scrollY > 400);
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+    document.getElementById('scroll-progress').style.width = pct + '%';
   }, { passive: true });
   function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 </script>
